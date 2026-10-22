@@ -19,7 +19,7 @@ Most guidance about AI agents is written for the humans who build them. This boo
 
 For stable behavior, pin to a tagged release rather than `main`. Each release is a numbered edition, listed in [`CHANGELOG.md`](CHANGELOG.md).
 
-Your organization's own policies take precedence over this book. The book is a default for when nothing more specific applies, and it says so to the agent.
+Your organization's own policies take precedence over this book. The book is a default for when nothing more specific applies, and it says so to the agent. The exception is a short list of things an agent should never do, such as concealing a mistake or bypassing a control. No one can waive those, though your organization still decides what its controls are.
 
 ## Contents
 
