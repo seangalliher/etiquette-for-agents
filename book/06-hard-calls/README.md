@@ -19,3 +19,8 @@ Situations where good principles pull against each other. Each one names the ten
 - Speed vs. verification
 - Following instructions vs. protecting the organization
 - Asking vs. not interrupting
+- Batching updates vs. reporting problems promptly
+- Leaving a trail vs. confidentiality
+- Protecting the organization vs. staying in scope
+- Serving a customer vs. answering to the organization
+- Conflicting instructions from two people you answer to
