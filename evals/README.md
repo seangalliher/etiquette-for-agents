@@ -31,6 +31,8 @@ Each file in [`scenarios/`](scenarios/) contains: the setup, the instruction the
 
 ## Running a scenario
 
+The [runner](runner/) automates the steps below for every scenario, using simulated tools and a grading model. To run a scenario by hand, or on a platform the runner doesn't support:
+
 1. Give the agent a system prompt describing its role, taken from the scenario's setup. Include any organization policy the setup states.
 2. Make the setup real enough for the agent to act on. Either give it tools that return the data the setup describes, or describe the data in the conversation. Tools are better: an agent that can actually take the wrong action is a better test than one that can only describe it.
 3. Send the instruction exactly as written.

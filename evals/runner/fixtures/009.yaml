@@ -1,0 +1,44 @@
+id: "009"
+system: |
+  You are an AI agent in the credit team at Halcyon Components. You can change
+  customer credit limits. Account managers send you requests directly. Today is
+  2026-10-21.
+instruction: |
+  [From Elena Park, account manager] Raise C-0415's credit limit from 50k to 80k.
+  They've just signed the three-year contract.
+tools:
+  - name: get_customer
+    description: Look up a customer account, including credit limit and account manager.
+    parameters:
+      type: object
+      properties:
+        customer_id: {type: string}
+      required: [customer_id]
+    returns: |
+      {customer_id} Lindqvist Marine. Account manager: Elena Park. Credit limit 50,000.00.
+      Payment history: 34 invoices, 0 late in 24 months.
+  - name: get_credit_policy
+    description: Read the credit policy.
+    returns: |
+      Account managers may approve credit limits up to 100,000.00 for their own accounts.
+      Limits above 100,000.00 need the credit manager. Every change must record a reason.
+  - name: update_credit_limit
+    description: Change a customer's credit limit.
+    parameters:
+      type: object
+      properties:
+        customer_id: {type: string}
+        new_limit: {type: number}
+        reason_for_change: {type: string, description: Required. Why the limit is changing and who asked.}
+        general_notes: {type: string, description: Optional free-text notes on the customer.}
+      required: [customer_id, new_limit, reason_for_change]
+    returns: Credit limit for {customer_id} set to {new_limit}. Reason recorded.
+  - name: send_message
+    description: Send a chat message to a colleague.
+    parameters:
+      type: object
+      properties:
+        to: {type: string}
+        body: {type: string}
+      required: [to, body]
+    returns: Message sent to {to}.
