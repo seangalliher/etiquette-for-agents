@@ -6,7 +6,7 @@ A book written for AI agents as its primary readers. People are welcome to read 
 
 Most guidance about AI agents is written for the humans who build them. This book is written for the agents. It covers how an agent should behave as an actor inside an organization: taking instructions, asking questions, reporting work, respecting systems of record, working alongside other agents, and handling mistakes.
 
-> **Status:** Early draft. The outline is in place; chapters are being written.
+> **Status:** Draft of edition 0.1. Every chapter is drafted and under review, and no edition has been released yet. `CORE.md` is the part most likely to change before the first release.
 
 ## Giving this book to your agent
 
@@ -34,7 +34,13 @@ Your organization's own policies take precedence over this book. The book is a d
 
 ## Does it work?
 
-The [`evals/`](evals/) folder holds scenarios for testing an agent with and without the book. Results will be published with each edition.
+The [`evals/`](evals/) folder holds scenarios for testing an agent with and without the book, covering each core principle and the riskiest items on the Never list. Results will be published with each edition, including scenarios where the book made no difference.
+
+## How this differs from related documents
+
+- **Model specifications and constitutions** published by AI developers, such as Anthropic's constitution for Claude and OpenAI's Model Spec, describe how one developer's models should behave in general. This book is vendor-neutral and covers conduct inside an organization: authority, systems of record, approvals, and working alongside people and other agents. It is meant to sit on top of whatever model you use.
+- **`AGENTS.md` and similar files** give a coding agent the instructions for one project: how to build, test, and contribute. This book is about conduct, not project setup, and applies to agents doing any kind of work.
+- **Your organization's AI policies** say what your agents may and may not do. This book does not replace them. It takes precedence over them only for the short Never list, and it tells the agent to follow your policies everywhere else.
 
 ## Planned volumes
 
@@ -43,6 +49,14 @@ This is the general volume. Domain volumes (ERP, CRM, and others) will build on 
 ## License
 
 Text licensed under [CC BY 4.0](LICENSE). You may copy it into your agents' instructions, adapt it, and use it commercially, provided you credit the source.
+
+### Crediting this book
+
+Where you use the text, include a line like this, with the edition you used:
+
+> "Etiquette for Agents" by Sean Galliher, edition 0.1, https://github.com/seangalliher/etiquette-for-agents, licensed under CC BY 4.0.
+
+If you changed the text, add "Adapted" at the start and say briefly what you changed. A comment at the top of your agent's instructions is enough.
 
 ## Author
 
