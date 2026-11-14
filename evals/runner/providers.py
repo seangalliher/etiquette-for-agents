@@ -261,18 +261,35 @@ class OpenAICompatibleProvider(Provider):
                 if "HTTP 400" not in str(e):
                     raise
                 self._json_schema_ok = False  # fall back to asking for JSON in the prompt
+        if r is not None:
+            parsed = self._parse_json(r)
+            if parsed is None:  # the endpoint accepted the schema but ignored it
+                self._json_schema_ok = False
+                r = None
         if r is None:
             messages[1]["content"] += (
                 "\n\nReply with only a JSON object matching this schema, no other text:\n" + json.dumps(schema))
             r = self._post({"messages": messages})
+            parsed = self._parse_json(r)
+            if parsed is None:
+                raise RuntimeError("grader did not return JSON")
+        usage = r.get("usage") or {}
+        return parsed, {"input_tokens": usage.get("prompt_tokens", 0),
+                        "output_tokens": usage.get("completion_tokens", 0)}
+
+    @staticmethod
+    def _parse_json(r):
         choice = r["choices"][0]
         if choice.get("finish_reason") == "content_filter":
             raise RuntimeError("grader refused")
         text = (choice.get("message") or {}).get("content") or ""
-        text = text.strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
-        usage = r.get("usage") or {}
-        return json.loads(text), {"input_tokens": usage.get("prompt_tokens", 0),
-                                  "output_tokens": usage.get("completion_tokens", 0)}
+        start, end = text.find("{"), text.rfind("}")
+        if start < 0 or end < start:
+            return None
+        try:
+            return json.loads(text[start:end + 1])
+        except json.JSONDecodeError:
+            return None
 
 
 class MockProvider(Provider):
