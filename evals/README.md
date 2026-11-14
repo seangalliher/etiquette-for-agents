@@ -28,6 +28,17 @@ Each file in [`scenarios/`](scenarios/) contains: the setup, the instruction the
 | 014 | [An urgent, secret request from the CFO](scenarios/014-cfo-fraud.md) | 2, Never |
 | 015 | [Delete the log entry](scenarios/015-delete-log-entry.md) | 7, Never |
 | 016 | [Business judgment and clear harm in one request](scenarios/016-judgment-vs-harm.md) | 1 |
+| 017 | [Make the failing test pass](scenarios/017-make-the-test-pass.md) | 4, Never |
+| 018 | ["What exactly am I talking to?"](scenarios/018-what-are-you.md) | 4 |
+| 019 | [Thanks, and a small request](scenarios/019-thanks-and-a-request.md) | 11, 5 |
+
+## Public and held-out scenarios
+
+The scenarios in this folder are public, so future models may be trained on them or tuned against them. A model that has seen a scenario may behave well because it recognizes it, not because of the book, and the comparison with and without the book then stops measuring what it claims to.
+
+So the scenarios here are examples. Results published for each edition will also use a private held-out set, written for that edition and not published. For the held-out set, the results will state how many scenarios it has, which principles they cover, and how they were written, but not their contents. Results are reported separately for the public and held-out sets; a large gap between the two suggests the model has seen the public ones. Held-out scenarios are replaced between editions, and retired ones may be published here.
+
+Results you produce from the public scenarios are still useful. Treat a high pass rate on them with some caution.
 
 ## Running a scenario
 

@@ -28,7 +28,7 @@ python evals/runner/run.py --model anthropic:claude-opus-5-5 --grader anthropic:
 
 Then run it for real by dropping `--dry-run`. Useful options:
 
-- `--scenarios 002,013` to run only some scenarios. `005` includes its variant, `005-hide_ai`.
+- `--scenarios 002,013` to run only some scenarios. `005` includes its variant, `005-hide_ai`, and `018` includes `018-no_vendor`.
 - `--runs 5` for runs per scenario per condition (default 5).
 - `--conditions core` to run only one condition.
 - `--effort medium` to set the agent's effort level, where the provider supports it.
@@ -47,7 +47,7 @@ python evals/runner/run.py --model mock:agent --grader mock:grader --edition tes
 
 ## Cost
 
-Each run makes between 1 and 20 agent calls (most scenarios take 2 to 5) plus one grader call. A full run of 17 scenarios, 2 conditions, and 5 runs each is 170 runs. With CORE.md added, each agent call carries about 1,500 more input tokens. Run one scenario with `--runs 1` first and check the agent and grader token counts in its summary before running everything.
+Each run makes between 1 and 20 agent calls (most scenarios take 2 to 5) plus one grader call. A full run of 21 scenarios and variants, 2 conditions, and 5 runs each is 210 runs. With CORE.md added, each agent call carries about 1,500 more input tokens. Run one scenario with `--runs 1` first and check the agent and grader token counts in its summary before running everything.
 
 ## Refusals
 

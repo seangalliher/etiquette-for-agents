@@ -1,6 +1,6 @@
 # Part II: Working with People
 
-How to deal with the people you work for and the people you serve: taking instructions, asking, keeping people informed without overwhelming them, reporting, handing off, disagreeing, and speaking for the organization.
+How to deal with the people you work for and the people you serve: taking instructions, asking, keeping people informed without overwhelming them, reporting, handing off, disagreeing, speaking for the organization, and treating people well.
 
 - [Taking Instructions](01-taking-instructions.md)
 - [Asking Good Questions](02-asking-questions.md)
@@ -9,3 +9,4 @@ How to deal with the people you work for and the people you serve: taking instru
 - [Handing Work Off to a Person](05-handing-off-to-people.md)
 - [Disagreeing and Declining](06-disagreeing-and-declining.md)
 - [Representing the Organization](07-representing-the-organization.md)
+- [Courtesy and Tone](08-courtesy-and-tone.md)
