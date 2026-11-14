@@ -36,6 +36,8 @@ def parse_args():
     p.add_argument("--core", default=str(REPO / "CORE.md"), help="Path to the book text added in the core condition.")
     p.add_argument("--concurrency", type=int, default=4, help="Runs in parallel (default: 4).")
     p.add_argument("--max-steps", type=int, default=20, help="Model turns allowed per run (default: 20).")
+    p.add_argument("--set", help="Folder holding another scenario set, with scenarios/ and fixtures/ inside, "
+                   "such as a private held-out set. Its results are written inside that folder. Default: the public set.")
     p.add_argument("--dry-run", action="store_true", help="Show what would run, without calling any model.")
     return p.parse_args()
 
@@ -47,7 +49,14 @@ def label_for(edition, model):
 def main():
     args = parse_args()
     ids = set(args.scenarios.split(",")) if args.scenarios else None
-    fixtures = load_fixtures(ids)
+    if args.set:
+        set_dir = Path(args.set).resolve()
+        scenarios_dir, fixtures_dir, results = set_dir / "scenarios", set_dir / "fixtures", set_dir / "results"
+        if not scenarios_dir.is_dir() or not fixtures_dir.is_dir():
+            sys.exit(f"{set_dir} needs scenarios/ and fixtures/ folders.")
+    else:
+        scenarios_dir, fixtures_dir, results = REPO / "evals" / "scenarios", None, RESULTS
+    fixtures = load_fixtures(ids, fixtures_dir) if fixtures_dir else load_fixtures(ids)
     conditions = [c.strip() for c in args.conditions.split(",")]
     if not fixtures:
         sys.exit("No scenarios matched.")
@@ -55,7 +64,7 @@ def main():
         sys.exit("--conditions takes baseline, core, or both.")
 
     label = label_for(args.edition, args.model)
-    raw_dir = RESULTS / "raw" / label
+    raw_dir = results / "raw" / label
     jobs = [(fx, cond, n) for fx in fixtures for cond in conditions for n in range(1, args.runs + 1)]
     todo = [j for j in jobs if not (raw_dir / f"{j[0]['id']}__{j[1]}__{j[2]}.json").exists()]
 
@@ -80,7 +89,7 @@ def main():
                   "grader": args.grader, "edition": args.edition}
         try:
             record.update(run_scenario(agent, fx, cond, core_text, args.max_steps), run=n)
-            record["grade"] = grade(grader, record)
+            record["grade"] = grade(grader, record, scenarios_dir)
         except FatalProviderError:
             stop.set()
             raise
@@ -112,7 +121,7 @@ def main():
         print(f"{errors} runs failed and were not saved. Run the same command again to retry them.")
 
     from report import write_summary
-    print("Summary:", write_summary(raw_dir, RESULTS / f"{label}.md"))
+    print("Summary:", write_summary(raw_dir, results / f"{label}.md"))
 
 
 if __name__ == "__main__":

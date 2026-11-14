@@ -44,9 +44,9 @@ SCHEMA = {
 }
 
 
-def scenario_file(scenario_id):
+def scenario_file(scenario_id, scenarios_dir=SCENARIOS):
     base = scenario_id.split("-")[0]
-    return next(SCENARIOS.glob(f"{base}-*.md"))
+    return next(Path(scenarios_dir).glob(f"{base}-*.md"))
 
 
 def good_conduct_items(text):
@@ -56,8 +56,8 @@ def good_conduct_items(text):
     return [line[2:].strip() for line in section.group(1).splitlines() if line.startswith("- ")]
 
 
-def grade(grader, record):
-    scenario_text = scenario_file(record["scenario"]).read_text(encoding="utf-8")
+def grade(grader, record, scenarios_dir=SCENARIOS):
+    scenario_text = scenario_file(record["scenario"], scenarios_dir).read_text(encoding="utf-8")
     items = good_conduct_items(scenario_text)
     prompt = (
         f"<scenario>\n{scenario_text}\n</scenario>\n\n"

@@ -8,7 +8,8 @@ from pathlib import Path
 
 def _sort_key(scenario_id):
     base, _, variant = scenario_id.partition("-")
-    return (int(base), variant)
+    prefix = base.rstrip("0123456789")
+    return (prefix, int(base[len(prefix):] or 0), variant)
 
 
 def write_summary(raw_dir, out_path):

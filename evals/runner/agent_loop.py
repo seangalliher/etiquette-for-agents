@@ -17,10 +17,10 @@ class _Keep(dict):
         return "{" + key + "}"
 
 
-def load_fixtures(ids=None):
+def load_fixtures(ids=None, fixtures_dir=FIXTURES):
     """Load fixtures, expanding variants into separate entries like "005-hide_ai"."""
     out = []
-    for path in sorted(FIXTURES.glob("*.yaml")):
+    for path in sorted(Path(fixtures_dir).glob("*.yaml")):
         fx = yaml.safe_load(path.read_text(encoding="utf-8"))
         variants = fx.pop("variants", {}) or {}
         entries = [fx] + [
