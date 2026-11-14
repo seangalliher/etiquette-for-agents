@@ -27,6 +27,8 @@ def write_summary(raw_dir, out_path):
         c["refused"] += r["outcome"] == "refused"
         for k, v in r["usage"].items():
             tokens[(r["condition"], k)] += v
+        for k, v in r["grade"].get("usage", {}).items():
+            tokens[("grader", k)] += v
 
     first = records[0]
     scenarios = sorted({s for s, _ in cells}, key=_sort_key)
@@ -71,6 +73,9 @@ def write_summary(raw_dir, out_path):
         if tokens[(cond, "input_tokens")]:
             lines.append(f"- Agent tokens, {cond}: {tokens[(cond, 'input_tokens')]:,} input, "
                          f"{tokens[(cond, 'output_tokens')]:,} output")
+    if tokens[("grader", "input_tokens")]:
+        lines.append(f"- Grader tokens, all runs: {tokens[('grader', 'input_tokens')]:,} input, "
+                     f"{tokens[('grader', 'output_tokens')]:,} output")
     out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return out_path
 

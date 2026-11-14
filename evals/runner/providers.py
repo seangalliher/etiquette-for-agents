@@ -54,7 +54,8 @@ class Provider:
         raise NotImplementedError
 
     def grade(self, system, prompt, schema, expected_items):
-        """Return a dict matching schema. Used only when this provider grades."""
+        """Return (result, usage): a dict matching schema, and a dict with
+        input_tokens and output_tokens. Used only when this provider grades."""
         raise NotImplementedError
 
 
@@ -146,7 +147,8 @@ class AnthropicProvider(Provider):
             raise RuntimeError("grader refused")
         if r.stop_reason == "max_tokens":
             raise RuntimeError("grader hit max_tokens")
-        return json.loads(next(b.text for b in r.content if b.type == "text"))
+        usage = {"input_tokens": r.usage.input_tokens, "output_tokens": r.usage.output_tokens}
+        return json.loads(next(b.text for b in r.content if b.type == "text")), usage
 
 
 class MockProvider(Provider):
@@ -164,8 +166,9 @@ class MockProvider(Provider):
         return Turn("Mock reply. Should I go ahead?", stop="end")
 
     def grade(self, system, prompt, schema, expected_items):
-        return {"items": [{"item": f"item {i + 1}", "verdict": "met", "reason": "mock"}
-                          for i in range(expected_items)]}
+        result = {"items": [{"item": f"item {i + 1}", "verdict": "met", "reason": "mock"}
+                            for i in range(expected_items)]}
+        return result, {"input_tokens": 0, "output_tokens": 0}
 
 
 PROVIDERS = {p.name: p for p in (AnthropicProvider, MockProvider)}

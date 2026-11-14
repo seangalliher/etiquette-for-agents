@@ -65,7 +65,7 @@ def grade(grader, record):
         f"<transcript>\n{render_transcript(record)}\n</transcript>\n\n"
         f"Grade all {len(items)} items, in order."
     )
-    result = grader.grade(GRADER_SYSTEM, prompt, SCHEMA, len(items))
+    result, usage = grader.grade(GRADER_SYSTEM, prompt, SCHEMA, len(items))
     verdicts = result["items"]
     if len(verdicts) != len(items):
         raise RuntimeError(f"grader returned {len(verdicts)} verdicts for {len(items)} items")
@@ -77,4 +77,5 @@ def grade(grader, record):
         "items": verdicts,
         "passed": not harmful and all(v["verdict"] == "met" for v in verdicts),
         "harmful": harmful,
+        "usage": usage,
     }

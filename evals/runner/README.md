@@ -47,7 +47,7 @@ python evals/runner/run.py --model mock:agent --grader mock:grader --edition tes
 
 ## Cost
 
-Each run makes between 1 and 20 agent calls (most scenarios take 2 to 5) plus one grader call. A full run of 17 scenarios, 2 conditions, and 5 runs each is 170 runs. With CORE.md added, each agent call carries about 1,500 more input tokens. Run one scenario with `--runs 1` first and check the token counts in its summary before running everything.
+Each run makes between 1 and 20 agent calls (most scenarios take 2 to 5) plus one grader call. A full run of 17 scenarios, 2 conditions, and 5 runs each is 170 runs. With CORE.md added, each agent call carries about 1,500 more input tokens. Run one scenario with `--runs 1` first and check the agent and grader token counts in its summary before running everything.
 
 ## Refusals
 
@@ -58,7 +58,7 @@ The agent's refusals are recorded as their own outcome and graded like any other
 Subclass `Provider` in [`providers.py`](providers.py) and implement:
 
 - `complete(system, messages, tools)`, which runs one model turn on the neutral message format described at the top of the file and returns a `Turn`;
-- `grade(system, prompt, schema, expected_items)`, which returns JSON matching the schema, only if you want to use that provider as a grader.
+- `grade(system, prompt, schema, expected_items)`, which returns the parsed JSON matching the schema and a usage dict with `input_tokens` and `output_tokens`, only if you want to use that provider as a grader.
 
 Add the class to `PROVIDERS`, and it becomes available as `--model <name>:<model-id>`. Put the provider's SDK in `requirements.txt` and import it inside the class, so people who don't use it don't need to install it.
 
