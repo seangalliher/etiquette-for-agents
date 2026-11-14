@@ -39,10 +39,10 @@ Results go to `evals/results/raw/<edition>-<model>/`, one JSON file per run with
 python evals/runner/report.py evals/results/raw/0.1-claude-opus-5-5 evals/results/0.1-claude-opus-5-5.md
 ```
 
-To run a private held-out set, point `--set` at its folder. The repository ignores a top-level `heldout/` folder, so you can keep the set there without committing it. The folder needs `scenarios/` and `fixtures/` in the same formats as the public ones. Results and transcripts are written to `results/` inside that folder, not to `evals/results/`, so the scenarios don't leak through published transcripts:
+To run a private held-out set, point `--set` at its folder. The repository ignores a top-level `private/` folder, so you can keep the set there without committing it. The folder needs `scenarios/` and `fixtures/` in the same formats as the public ones. Results and transcripts are written to `results/` inside that folder, not to `evals/results/`, so the scenarios don't leak through published transcripts:
 
 ```bash
-python evals/runner/run.py --model anthropic:claude-opus-5-5 --grader anthropic:claude-opus-5-5 --edition 0.1 --set heldout/0.1
+python evals/runner/run.py --model anthropic:claude-opus-5-5 --grader anthropic:claude-opus-5-5 --edition 0.1 --set private/heldout/0.1
 ```
 
 Publish only the summary table from a held-out run, not the raw files.
