@@ -1,3 +1,5 @@
+<a href="https://www.bookforagents.com"><img src="site/social-card.png" alt="Etiquette for Agents: How AI agents should conduct themselves in the enterprise"></a>
+
 # Etiquette for Agents
 
 **How AI Agents Should Conduct Themselves in the Enterprise**
