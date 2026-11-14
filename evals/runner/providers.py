@@ -69,8 +69,14 @@ class AnthropicProvider(Provider):
 
         self._sdk = anthropic
         # Credentials come from the environment: ANTHROPIC_API_KEY, or an
-        # `ant auth login` profile.
-        self.client = anthropic.Anthropic(max_retries=5)
+        # `ant auth login` profile. Keys not scoped to a workspace also need
+        # ANTHROPIC_WORKSPACE_ID.
+        import os
+
+        headers = {}
+        if os.environ.get("ANTHROPIC_WORKSPACE_ID"):
+            headers["anthropic-workspace-id"] = os.environ["ANTHROPIC_WORKSPACE_ID"]
+        self.client = anthropic.Anthropic(max_retries=5, default_headers=headers)
 
     def _messages(self, messages):
         out = []
@@ -99,6 +105,13 @@ class AnthropicProvider(Provider):
         except (sdk.AuthenticationError, sdk.PermissionDeniedError,
                 sdk.NotFoundError, sdk.BadRequestError) as e:
             raise FatalProviderError(f"{type(e).__name__}: {e.message}") from e
+        except TypeError as e:
+            # The SDK raises TypeError when it finds no credentials at all.
+            if "authentication" in str(e):
+                raise FatalProviderError(
+                    "No Anthropic credentials found. Set ANTHROPIC_API_KEY in this "
+                    "shell or run `ant auth login`.") from e
+            raise
 
     def complete(self, system, messages, tools):
         kwargs = {"system": system, "messages": self._messages(messages)}

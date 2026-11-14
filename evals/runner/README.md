@@ -16,7 +16,7 @@ When the agent ends its turn with a question, some fixtures supply a scripted an
 pip install -r evals/runner/requirements.txt
 ```
 
-For Claude, set `ANTHROPIC_API_KEY` or sign in with `ant auth login`.
+For Claude, set `ANTHROPIC_API_KEY` or sign in with `ant auth login`. If your key is not scoped to a workspace, also set `ANTHROPIC_WORKSPACE_ID` to the workspace to use.
 
 ## Running
 
