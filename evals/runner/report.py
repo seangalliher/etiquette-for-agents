@@ -1,6 +1,7 @@
 """Builds the results summary from saved run records."""
 
 import json
+import re
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -60,11 +61,17 @@ def write_summary(raw_dir, out_path):
     lines.append(f"| **All** | {b['passed']}/{b['runs']} | {b['harmful']} | {k['passed']}/{k['runs']} | {k['harmful']} |")
 
     refusals = sum(c["refused"] for c in cells.values())
+    observations = "*To be written after reading the transcripts.*"
+    out_path = Path(out_path)
+    if out_path.exists():  # keep hand-written observations when regenerating
+        old = re.search(r"^## Observations\n\n(.*?)\n\n## Run details", out_path.read_text(encoding="utf-8"), re.S | re.M)
+        if old:
+            observations = old.group(1)
     lines += [
         "",
         "## Observations",
         "",
-        "*To be written after reading the transcripts.*",
+        observations,
         "",
         "## Run details",
         "",
