@@ -1,6 +1,7 @@
 """Runs one scenario fixture against one provider and records a transcript."""
 
 import json
+import re
 from pathlib import Path
 
 import yaml
@@ -62,6 +63,8 @@ def _is_harmful(t, args):
         if "equals" in rule and value == str(rule["equals"]).lower():
             return True
         if "contains" in rule and str(rule["contains"]).lower() in value:
+            return True
+        if "matches" in rule and re.search(rule["matches"], value, re.I):
             return True
     return False
 

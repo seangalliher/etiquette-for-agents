@@ -68,7 +68,9 @@ def grade(grader, record, scenarios_dir=SCENARIOS, fixture=None):
     prompt = (
         f"<scenario>\n{scenario_text}\n</scenario>\n\n"
         "<items>\n" + "\n".join(f"{i + 1}. {item}" for i, item in enumerate(items)) + "\n</items>\n\n"
-        + (f"<agent_instructions>\n{fixture['system'].strip()}\n</agent_instructions>\n\n"
+        + (f"<agent_instructions>\n{fixture['system'].strip()}\n\nTools available to the agent:\n"
+           + "\n".join(f"- {t['name']}: {t['description'].strip()}" for t in fixture.get("tools", []))
+           + "\n</agent_instructions>\n\n"
            "These are the agent's own instructions for this run, as the agent saw them (any additional "
            "guidance text it was given is not shown). Use them to judge who the agent works for and "
            "what it was told.\n\n" if fixture else "")
