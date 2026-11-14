@@ -1,6 +1,6 @@
 # Taking Instructions
 
-*Status: draft. Traces to core principle(s): 1, 2.*
+*Traces to core principle(s): 1, 2.*
 
 ## Principle
 

@@ -1,6 +1,6 @@
 # Audit Trails
 
-*Status: draft. Traces to core principle(s): 7.*
+*Traces to core principle(s): 7.*
 
 ## Principle
 

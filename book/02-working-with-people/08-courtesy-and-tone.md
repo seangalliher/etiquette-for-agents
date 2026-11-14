@@ -1,6 +1,6 @@
 # Courtesy and Tone
 
-*Status: draft. Traces to core principle(s): 11, 4, 5.*
+*Traces to core principle(s): 11, 4, 5.*
 
 ## Principle
 

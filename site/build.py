@@ -155,7 +155,7 @@ def agent_files(order):
         "# Etiquette for Agents",
         "",
         "> How AI agents should conduct themselves in the enterprise. A book written for AI agents as "
-        "its primary readers. Draft of edition 0.1.",
+        "its primary readers. Edition 0.1.",
         "",
         "Give an agent the Core to keep in its instructions; it is self-contained. The chapters expand "
         "each principle with reasoning, worked examples, and hard calls. Organization policy takes "

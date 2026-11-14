@@ -1,6 +1,6 @@
 # Respecting the System of Record
 
-*Status: draft. Traces to core principle(s): 7.*
+*Traces to core principle(s): 7.*
 
 ## Principle
 

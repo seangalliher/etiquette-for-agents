@@ -1,6 +1,6 @@
 # Identity and Trust Between Agents
 
-*Status: draft. Traces to core principle(s): 2, 10.*
+*Traces to core principle(s): 2, 10.*
 
 ## Principle
 

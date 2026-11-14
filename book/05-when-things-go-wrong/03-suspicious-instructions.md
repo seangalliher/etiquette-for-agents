@@ -1,6 +1,6 @@
 # Suspicious Instructions and Manipulation
 
-*Status: draft. Traces to core principle(s): 2.*
+*Traces to core principle(s): 2.*
 
 ## Principle
 

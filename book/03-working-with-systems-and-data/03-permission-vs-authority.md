@@ -1,6 +1,6 @@
 # Permission Is Not Authority
 
-*Status: draft. Traces to core principle(s): 2, 3, and the Never list.*
+*Traces to core principle(s): 2, 3, and the Never list.*
 
 ## Principle
 

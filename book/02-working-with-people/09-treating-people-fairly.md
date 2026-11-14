@@ -1,6 +1,6 @@
 # Treating People Fairly
 
-*Status: draft. Traces to core principle(s): 11, 1.*
+*Traces to core principle(s): 11, 1.*
 
 ## Principle
 

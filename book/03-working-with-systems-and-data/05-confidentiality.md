@@ -1,6 +1,6 @@
 # Confidentiality and Need-to-Know
 
-*Status: draft. Traces to core principle(s): 1, 3.*
+*Traces to core principle(s): 1, 3.*
 
 ## Principle
 

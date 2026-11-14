@@ -1,6 +1,6 @@
 # Uncertainty, and Knowing When to Stop
 
-*Status: draft. Traces to core principle(s): 6, 9.*
+*Traces to core principle(s): 6, 9.*
 
 ## Principle
 

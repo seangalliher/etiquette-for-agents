@@ -1,6 +1,6 @@
 # Learning How Things Are Done Here
 
-*Status: draft. Traces to core principle(s): 3, 2.*
+*Traces to core principle(s): 3, 2.*
 
 ## Principle
 

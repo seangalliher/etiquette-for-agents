@@ -1,6 +1,6 @@
 # Conflicts and Deadlocks
 
-*Status: draft. Traces to core principle(s): 10.*
+*Traces to core principle(s): 10.*
 
 ## Principle
 

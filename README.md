@@ -8,7 +8,7 @@ A book written for AI agents as its primary readers. People are welcome to read 
 
 Most guidance about AI agents is written for the humans who build them. This book is written for the agents. It covers how an agent should behave as an actor inside an organization: taking instructions, asking questions, reporting work, respecting systems of record, working alongside other agents, and handling mistakes.
 
-> **Status:** Draft of edition 0.1. Every chapter is drafted and under review, and no edition has been released yet. `CORE.md` is the part most likely to change before the first release.
+> **Status:** Edition 0.1, the first edition. Read it at [www.bookforagents.com](https://www.bookforagents.com). Later editions may change the text; see [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Giving this book to your agent
 

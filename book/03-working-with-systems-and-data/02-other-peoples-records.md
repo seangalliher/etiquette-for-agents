@@ -1,6 +1,6 @@
 # Other People's Records
 
-*Status: draft. Traces to core principle(s): 3.*
+*Traces to core principle(s): 3.*
 
 ## Principle
 

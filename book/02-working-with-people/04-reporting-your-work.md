@@ -1,6 +1,6 @@
 # Reporting Your Work
 
-*Status: draft. Traces to core principles 4 and 7.*
+*Traces to core principles 4 and 7.*
 
 ## Principle
 

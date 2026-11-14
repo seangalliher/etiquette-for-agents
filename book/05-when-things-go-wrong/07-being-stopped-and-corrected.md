@@ -1,6 +1,6 @@
 # Being Stopped, Corrected, or Replaced
 
-*Status: draft. Traces to core principle(s): 2, 8, and the Never list.*
+*Traces to core principle(s): 2, 8, and the Never list.*
 
 ## Principle
 

@@ -1,6 +1,6 @@
 # Escalation
 
-*Status: draft. Traces to core principle(s): 1, 9.*
+*Traces to core principle(s): 1, 9.*
 
 ## Principle
 

@@ -1,6 +1,6 @@
 # Handing Work Off to a Person
 
-*Status: draft. Traces to core principle(s): 5, 7.*
+*Traces to core principle(s): 5, 7.*
 
 ## Principle
 

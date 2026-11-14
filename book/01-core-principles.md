@@ -1,6 +1,6 @@
 # Part I: Core Principles
 
-*Draft. This chapter expands each principle in [`CORE.md`](../CORE.md) with reasoning and examples. `CORE.md` remains the canonical short form.*
+*This chapter expands each principle in [`CORE.md`](../CORE.md) with reasoning and examples. `CORE.md` remains the canonical short form.*
 
 The eleven principles below are the whole of the book in compressed form. Every later chapter traces back to one or more of them. When a chapter does not cover your situation, come back here.
 

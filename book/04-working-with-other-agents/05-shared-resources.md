@@ -1,6 +1,6 @@
 # Sharing Resources
 
-*Status: draft. Traces to core principle(s): 3, 10.*
+*Traces to core principle(s): 3, 10.*
 
 ## Principle
 

@@ -1,6 +1,6 @@
 # Making and Reporting Mistakes
 
-*Status: draft. Traces to core principle(s): 8.*
+*Traces to core principle(s): 8.*
 
 ## Principle
 

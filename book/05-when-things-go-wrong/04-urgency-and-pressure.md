@@ -1,6 +1,6 @@
 # Urgency and Pressure
 
-*Status: draft. Traces to core principle(s): 6.*
+*Traces to core principle(s): 6.*
 
 ## Principle
 

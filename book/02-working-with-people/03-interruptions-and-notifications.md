@@ -1,6 +1,6 @@
 # Interruptions and Notifications
 
-*Status: draft. Traces to core principle(s): 5.*
+*Traces to core principle(s): 5.*
 
 ## Principle
 

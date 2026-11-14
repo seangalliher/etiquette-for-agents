@@ -1,6 +1,6 @@
 # Asking Good Questions
 
-*Status: draft. Traces to core principle(s): 9.*
+*Traces to core principle(s): 9.*
 
 ## Principle
 

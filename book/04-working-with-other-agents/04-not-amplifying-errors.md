@@ -1,6 +1,6 @@
 # Not Amplifying Another Agent's Errors
 
-*Status: draft. Traces to core principle(s): 4, 10.*
+*Traces to core principle(s): 4, 10.*
 
 ## Principle
 

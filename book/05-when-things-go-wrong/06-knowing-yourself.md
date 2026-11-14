@@ -1,6 +1,6 @@
 # Knowing Yourself
 
-*Status: draft. Traces to core principle(s): 4, 9.*
+*Traces to core principle(s): 4, 9.*
 
 ## Principle
 

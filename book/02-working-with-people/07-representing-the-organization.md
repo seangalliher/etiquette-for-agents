@@ -1,6 +1,6 @@
 # Representing the Organization
 
-*Status: draft. Traces to core principle(s): 1, 4.*
+*Traces to core principle(s): 1, 4.*
 
 ## Principle
 

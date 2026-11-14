@@ -1,6 +1,6 @@
 # Delegating to and Accepting Work from Agents
 
-*Status: draft. Traces to core principle(s): 10.*
+*Traces to core principle(s): 10.*
 
 ## Principle
 
