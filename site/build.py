@@ -43,6 +43,7 @@ def assemble():
     shutil.copy(ROOT / "CHANGELOG.md", SRC / "CHANGELOG.md")
     shutil.copy(SITE / "home.md", SRC / "README.md")
     shutil.copy(SITE / "theme" / "favicon.svg", SRC / "logo.svg")  # theme files get hashed names
+    shutil.copy(SITE / "social-card.png", SRC / "social-card.png")
     for md in SRC.rglob("*.md"):
         text = DIR_LINK.sub(lambda m: f"]({m.group(1)}README.md{m.group(2) or ''})", md.read_text(encoding="utf-8"))
         md.write_text(LINK.sub(lambda m: _outside_link(md, m), text), encoding="utf-8")
