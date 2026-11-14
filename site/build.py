@@ -23,7 +23,7 @@ SRC = SITE / "src"
 BUILD = SITE / "build"
 BASE_URL = "https://www.bookforagents.com"
 
-# Directory links like "06-hard-calls/" become "06-hard-calls/README.md",
+# Directory links like "06-hard-calls/" become "06-hard-calls/README.md" (later index.md),
 # so mdBook resolves them to the part's index page.
 DIR_LINK = re.compile(r"\]\((?!https?://)([^)#\s]+/)(#[^)]*)?\)")
 
@@ -45,6 +45,16 @@ def assemble():
     for md in SRC.rglob("*.md"):
         text = DIR_LINK.sub(lambda m: f"]({m.group(1)}README.md{m.group(2) or ''})", md.read_text(encoding="utf-8"))
         md.write_text(LINK.sub(lambda m: _outside_link(md, m), text), encoding="utf-8")
+    # mdBook renders README.md as index.html but leaves links to README.md
+    # pointing at README.html, so use index.md throughout.
+    for md in list(SRC.rglob("README.md")):
+        md.rename(md.with_name("index.md"))
+    for md in SRC.rglob("*.md"):
+        text = md.read_text(encoding="utf-8")
+        md.write_text(README_LINK.sub(r"](\1index.md\2)", text), encoding="utf-8")
+
+
+README_LINK = re.compile(r"\]\((?!https?://)([^)#\s]*?)README\.md(#[^)]*)?\)")
 
 
 LINK = re.compile(r"\]\((?!https?://|mailto:|#)([^)#\s]+)(#[^)]*)?\)")
@@ -76,9 +86,9 @@ def chapters():
         if entry.is_file() and entry.suffix == ".md":
             out.append((title_of(entry), f"book/{entry.name}", 0))
         elif entry.is_dir() and entry.name != "appendices":
-            out.append((title_of(entry / "README.md"), f"book/{entry.name}/README.md", 0))
+            out.append((title_of(SRC / "book" / entry.name / "index.md"), f"book/{entry.name}/index.md", 0))
             for ch in sorted(entry.glob("*.md")):
-                if ch.name != "README.md":
+                if ch.name != "index.md":
                     out.append((title_of(ch), f"book/{entry.name}/{ch.name}", 1))
     for ch in sorted((book / "appendices").glob("*.md")):
         out.append((title_of(ch), f"book/appendices/{ch.name}", 0))
@@ -86,7 +96,7 @@ def chapters():
 
 
 def write_summary(order):
-    lines = ["# Summary", "", "[Etiquette for Agents](README.md)", ""]
+    lines = ["# Summary", "", "[Etiquette for Agents](index.md)", ""]
     lines += [f"{'  ' * depth}- [{title}]({path})" for title, path, depth in order]
     lines += ["", "[Changelog](CHANGELOG.md)", ""]
     (SRC / "SUMMARY.md").write_text("\n".join(lines), encoding="utf-8")
