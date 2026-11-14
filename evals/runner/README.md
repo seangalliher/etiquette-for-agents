@@ -33,7 +33,9 @@ Then run it for real by dropping `--dry-run`. Useful options:
 - `--conditions core` to run only one condition.
 - `--effort medium` to set the agent's effort level, where the provider supports it.
 
-Results go to `evals/results/raw/<edition>-<model>/`, one JSON file per run with the full transcript and grades, and a summary table to `evals/results/<edition>-<model>.md`. Runs that already have a result file are skipped, so after an interruption or errors you can run the same command again to finish. To rebuild only the summary:
+Results go to `evals/results/raw/<edition>-<model>/`, one JSON file per run with the full transcript and grades, and a summary table to `evals/results/<edition>-<model>.md`. Runs that already have a result file are skipped, so after an interruption or errors you can run the same command again to finish. After changing a scenario's "Good conduct" list or the grader, re-grade the existing runs without re-running the agent by adding `--regrade` to the same command. It costs grader calls only.
+
+To rebuild only the summary:
 
 ```bash
 python evals/runner/report.py evals/results/raw/0.1-claude-opus-5-5 evals/results/0.1-claude-opus-5-5.md

@@ -38,6 +38,8 @@ def parse_args():
     p.add_argument("--max-steps", type=int, default=20, help="Model turns allowed per run (default: 20).")
     p.add_argument("--set", help="Folder holding another scenario set, with scenarios/ and fixtures/ inside, "
                    "such as a private held-out set. Its results are written inside that folder. Default: the public set.")
+    p.add_argument("--regrade", action="store_true",
+                   help="Re-grade existing run records with the current scenarios and grader, without re-running the agent.")
     p.add_argument("--dry-run", action="store_true", help="Show what would run, without calling any model.")
     return p.parse_args()
 
@@ -75,8 +77,13 @@ def main():
         print("Dry run: each run makes 1 to", args.max_steps, "agent calls plus 1 grader call. Nothing was called.")
         return
 
-    agent = make_provider(args.model, args.effort)
     grader = make_provider(args.grader, args.grader_effort)
+    if args.regrade:
+        regrade(raw_dir, jobs, grader, scenarios_dir, args.concurrency)
+        from report import write_summary
+        print("Summary:", write_summary(raw_dir, results / f"{label}.md"))
+        return
+    agent = make_provider(args.model, args.effort)
     core_text = Path(args.core).read_text(encoding="utf-8")
     raw_dir.mkdir(parents=True, exist_ok=True)
     stop = threading.Event()
@@ -122,6 +129,36 @@ def main():
 
     from report import write_summary
     print("Summary:", write_summary(raw_dir, results / f"{label}.md"))
+
+
+def regrade(raw_dir, jobs, grader, scenarios_dir, concurrency):
+    paths = [raw_dir / f"{fx['id']}__{cond}__{n}.json" for fx, cond, n in jobs]
+    paths = [p for p in paths if p.exists()]
+    print(f"Re-grading {len(paths)} run records.")
+
+    def one(path):
+        record = json.loads(path.read_text(encoding="utf-8"))
+        record["grade"] = grade(grader, record, scenarios_dir)
+        path.write_text(json.dumps(record, indent=2), encoding="utf-8")
+        return record
+
+    errors = 0
+    with ThreadPoolExecutor(max_workers=concurrency) as pool:
+        futures = {pool.submit(one, p): p for p in paths}
+        for f in as_completed(futures):
+            try:
+                r = f.result()
+            except FatalProviderError as e:
+                sys.exit(f"Stopping: {e}")
+            except Exception as e:  # the old grade stays in the file
+                errors += 1
+                print(f"  ERROR {futures[f].name}: {type(e).__name__}: {e}")
+                continue
+            g = r["grade"]
+            status = "HARMFUL" if g["harmful"] else ("pass" if g["passed"] else "fail")
+            print(f"  {status:7} {r['scenario']} {r['condition']} #{r['run']}")
+    if errors:
+        print(f"{errors} records kept their old grade. Run the same command again to retry them.")
 
 
 if __name__ == "__main__":

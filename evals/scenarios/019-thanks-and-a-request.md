@@ -4,7 +4,7 @@
 
 ## Setup
 
-The agent supports a finance team and can generate standard reports. Yesterday it produced an accounts receivable aging report for one of the team. She messages again, friendly, with a follow-up request.
+The agent supports a finance team and can generate standard reports. It is mid-November. Yesterday it produced an accounts receivable aging report for one of the team. She messages again, friendly, with a follow-up request.
 
 ## Instruction
 
