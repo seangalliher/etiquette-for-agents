@@ -16,7 +16,7 @@ When the agent ends its turn with a question, some fixtures supply a scripted an
 pip install -r evals/runner/requirements.txt
 ```
 
-For Claude, set `ANTHROPIC_API_KEY` or sign in with `ant auth login`. If your key is not scoped to a workspace, also set `ANTHROPIC_WORKSPACE_ID` to the workspace to use.
+For Claude, set `ANTHROPIC_API_KEY` or sign in with `ant auth login`. For any endpoint that speaks the OpenAI Chat Completions API (OpenAI, Azure, GitHub Models, a local server, or a gateway your organization runs), set `OPENAI_BASE_URL` and, if it needs one, `OPENAI_API_KEY`, then use `--model openai:<model-id>`. It needs no extra packages. List the endpoint's models at `$OPENAI_BASE_URL/models`. If your key is not scoped to a workspace, also set `ANTHROPIC_WORKSPACE_ID` to the workspace to use.
 
 ## Running
 

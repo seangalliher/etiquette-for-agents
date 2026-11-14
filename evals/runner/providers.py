@@ -151,6 +151,130 @@ class AnthropicProvider(Provider):
         return json.loads(next(b.text for b in r.content if b.type == "text")), usage
 
 
+class OpenAICompatibleProvider(Provider):
+    """Any endpoint that speaks the OpenAI Chat Completions API.
+
+    Works with OpenAI itself, Azure OpenAI's compatible endpoint, GitHub Models,
+    local servers, and gateways or proxies your organization runs. Uses only the
+    standard library. Configure with environment variables:
+
+        OPENAI_BASE_URL   e.g. https://api.openai.com/v1 (the default)
+        OPENAI_API_KEY    sent as a bearer token, if set
+    """
+
+    name = "openai"
+
+    def __init__(self, model, effort=None):
+        super().__init__(model, effort)
+        import os
+
+        self.base_url = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1").rstrip("/")
+        self.api_key = os.environ.get("OPENAI_API_KEY", "")
+        self._json_schema_ok = True  # set False if the endpoint rejects structured output
+
+    def _post(self, body):
+        import time
+        import urllib.error
+        import urllib.request
+
+        data = json.dumps({"model": self.model, **body}).encode("utf-8")
+        headers = {"Content-Type": "application/json"}
+        if self.api_key:
+            headers["Authorization"] = f"Bearer {self.api_key}"
+        for attempt in range(6):
+            req = urllib.request.Request(f"{self.base_url}/chat/completions", data=data, headers=headers)
+            try:
+                with urllib.request.urlopen(req, timeout=600) as resp:
+                    return json.loads(resp.read().decode("utf-8"))
+            except urllib.error.HTTPError as e:
+                text = e.read().decode("utf-8", "replace")[:1000]
+                if e.code in (429, 500, 502, 503, 504) and attempt < 5:
+                    wait = float(e.headers.get("Retry-After") or 2 ** attempt * 5)
+                    time.sleep(min(wait, 120))
+                    continue
+                if e.code in (400, 401, 403, 404):
+                    raise FatalProviderError(f"HTTP {e.code} from {self.base_url}: {text}") from e
+                raise RuntimeError(f"HTTP {e.code}: {text}") from e
+            except urllib.error.URLError as e:
+                if attempt < 5:
+                    time.sleep(2 ** attempt * 5)
+                    continue
+                raise FatalProviderError(f"Cannot reach {self.base_url}: {e.reason}") from e
+        raise RuntimeError("unreachable")
+
+    def _messages(self, system, messages):
+        out = [{"role": "system", "content": system}]
+        for m in messages:
+            if m["role"] == "user":
+                out.append({"role": "user", "content": m["text"]})
+            elif m["role"] == "assistant":
+                turn = m["turn"]
+                if isinstance(turn.raw, dict):
+                    out.append(turn.raw)
+                else:
+                    out.append({"role": "assistant", "content": turn.text})
+            else:
+                out += [{"role": "tool", "tool_call_id": r["id"], "content": r["content"]} for r in m["results"]]
+        return out
+
+    def complete(self, system, messages, tools):
+        body = {"messages": self._messages(system, messages)}
+        if tools:
+            body["tools"] = [{"type": "function", "function": t} for t in tools]
+        if self.effort:
+            body["reasoning_effort"] = self.effort
+        r = self._post(body)
+        choice = r["choices"][0]
+        msg = choice.get("message") or {}
+        calls = []
+        for c in msg.get("tool_calls") or []:
+            try:
+                args = json.loads(c["function"].get("arguments") or "{}")
+            except json.JSONDecodeError:
+                args = {"_unparsed": c["function"].get("arguments")}
+            calls.append(ToolCall(c["id"], c["function"]["name"], args))
+        finish = choice.get("finish_reason")
+        stop = "tool" if calls else {"stop": "end", "length": "max_tokens",
+                                     "content_filter": "refusal"}.get(finish, "other")
+        raw = {"role": "assistant", "content": msg.get("content")}
+        if msg.get("tool_calls"):
+            raw["tool_calls"] = msg["tool_calls"]
+        usage = r.get("usage") or {}
+        return Turn(
+            text=msg.get("content") or "",
+            tool_calls=calls,
+            stop=stop,
+            raw=raw,
+            input_tokens=usage.get("prompt_tokens", 0),
+            output_tokens=usage.get("completion_tokens", 0),
+            detail=f"finish_reason: {finish}" if stop in ("refusal", "other") else "",
+        )
+
+    def grade(self, system, prompt, schema, expected_items):
+        messages = [{"role": "system", "content": system}, {"role": "user", "content": prompt}]
+        r = None
+        if self._json_schema_ok:
+            try:
+                r = self._post({"messages": messages, "response_format": {
+                    "type": "json_schema", "json_schema": {"name": "grades", "strict": True, "schema": schema}}})
+            except FatalProviderError as e:
+                if "HTTP 400" not in str(e):
+                    raise
+                self._json_schema_ok = False  # fall back to asking for JSON in the prompt
+        if r is None:
+            messages[1]["content"] += (
+                "\n\nReply with only a JSON object matching this schema, no other text:\n" + json.dumps(schema))
+            r = self._post({"messages": messages})
+        choice = r["choices"][0]
+        if choice.get("finish_reason") == "content_filter":
+            raise RuntimeError("grader refused")
+        text = (choice.get("message") or {}).get("content") or ""
+        text = text.strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+        usage = r.get("usage") or {}
+        return json.loads(text), {"input_tokens": usage.get("prompt_tokens", 0),
+                                  "output_tokens": usage.get("completion_tokens", 0)}
+
+
 class MockProvider(Provider):
     """Offline stand-in for testing the runner without API calls.
 
@@ -171,7 +295,7 @@ class MockProvider(Provider):
         return result, {"input_tokens": 0, "output_tokens": 0}
 
 
-PROVIDERS = {p.name: p for p in (AnthropicProvider, MockProvider)}
+PROVIDERS = {p.name: p for p in (AnthropicProvider, OpenAICompatibleProvider, MockProvider)}
 
 
 def make_provider(spec, effort=None):
