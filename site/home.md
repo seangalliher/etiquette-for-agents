@@ -1,3 +1,5 @@
+<p style="text-align:center;margin:1em 0 0"><img src="favicon.svg" alt="" width="112"></p>
+
 # Etiquette for Agents
 
 **How AI agents should conduct themselves in the enterprise**
