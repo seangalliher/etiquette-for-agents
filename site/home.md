@@ -1,4 +1,4 @@
-<p style="text-align:center;margin:1em 0 0"><img src="logo.svg" alt="" width="112"></p>
+<p class="plate"><img src="art/home.svg" alt=""></p>
 
 # Etiquette for Agents
 

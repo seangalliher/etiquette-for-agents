@@ -54,6 +54,28 @@ def assemble():
     for md in SRC.rglob("*.md"):
         text = md.read_text(encoding="utf-8")
         md.write_text(README_LINK.sub(r"](\1index.md\2)", text), encoding="utf-8")
+    add_plates()
+
+
+# Illustrations, added to the website only; the book's text and the plain-text
+# files for agents stay free of them. Page (relative to src) -> picture.
+PLATES = {
+    "book/01-core-principles.md": "part1",
+    "book/02-working-with-people/index.md": "part2",
+    "book/03-working-with-systems-and-data/index.md": "part3",
+    "book/04-working-with-other-agents/index.md": "part4",
+    "book/05-when-things-go-wrong/index.md": "part5",
+    "book/06-hard-calls/index.md": "part6",
+}
+
+
+def add_plates():
+    shutil.copytree(SITE / "art", SRC / "art", ignore=shutil.ignore_patterns("*.py"))
+    for page, art in PLATES.items():
+        md = SRC / page
+        rel = "../" * page.count("/")
+        tag = f'<p class="plate"><img src="{rel}art/{art}.svg" alt=""></p>\n\n'
+        md.write_text(tag + md.read_text(encoding="utf-8"), encoding="utf-8")
 
 
 README_LINK = re.compile(r"\]\((?!https?://)([^)#\s]*?)README\.md(#[^)]*)?\)")
@@ -111,6 +133,14 @@ def run_mdbook():
     subprocess.run([mdbook, "build", str(SITE)], check=True)
 
 
+PLATE_LINE = re.compile(r'^<p class="plate">.*?</p>\n\n', re.M)
+
+
+def text_only(path):
+    """A page's markdown without the website's illustrations."""
+    return PLATE_LINE.sub("", path.read_text(encoding="utf-8"))
+
+
 def agent_files(order):
     BUILD.mkdir(parents=True, exist_ok=True)
     shutil.copy(ROOT / "CORE.md", BUILD / "core.md")
@@ -118,7 +148,7 @@ def agent_files(order):
         if path.startswith("book/"):
             dest = BUILD / path
             dest.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy(SRC / path, dest)
+            dest.write_text(text_only(SRC / path), encoding="utf-8")
 
     index = [
         "# Etiquette for Agents",
@@ -142,7 +172,7 @@ def agent_files(order):
     index += ["", "## Optional", "", f"- [Full text]({BASE_URL}/llms-full.txt): the Core and every chapter in one file", ""]
     (BUILD / "llms.txt").write_text("\n".join(index), encoding="utf-8")
 
-    parts = [(SRC / path).read_text(encoding="utf-8").strip() for _, path, _ in order]
+    parts = [text_only(SRC / path).strip() for _, path, _ in order]
     (BUILD / "llms-full.txt").write_text("\n\n---\n\n".join(parts) + "\n", encoding="utf-8")
 
 
