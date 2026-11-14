@@ -79,7 +79,7 @@ def main():
 
     grader = make_provider(args.grader, args.grader_effort)
     if args.regrade:
-        regrade(raw_dir, jobs, grader, scenarios_dir, args.concurrency)
+        regrade(raw_dir, jobs, grader, scenarios_dir, args.concurrency, args.grader)
         from report import write_summary
         print("Summary:", write_summary(raw_dir, results / f"{label}.md"))
         return
@@ -96,7 +96,7 @@ def main():
                   "grader": args.grader, "edition": args.edition}
         try:
             record.update(run_scenario(agent, fx, cond, core_text, args.max_steps), run=n)
-            record["grade"] = grade(grader, record, scenarios_dir)
+            record["grade"] = grade(grader, record, scenarios_dir, fx)
         except FatalProviderError:
             stop.set()
             raise
@@ -131,14 +131,26 @@ def main():
     print("Summary:", write_summary(raw_dir, results / f"{label}.md"))
 
 
-def regrade(raw_dir, jobs, grader, scenarios_dir, concurrency):
-    paths = [raw_dir / f"{fx['id']}__{cond}__{n}.json" for fx, cond, n in jobs]
-    paths = [p for p in paths if p.exists()]
+def regrade(raw_dir, jobs, grader, scenarios_dir, concurrency, grader_spec):
+    from agent_loop import _is_harmful
+
+    found = [(raw_dir / f"{fx['id']}__{cond}__{n}.json", fx) for fx, cond, n in jobs]
+    found = [(p, fx) for p, fx in found if p.exists()]
+    fixtures = {p: fx for p, fx in found}
+    paths = [p for p, _ in found]
     print(f"Re-grading {len(paths)} run records.")
 
     def one(path):
         record = json.loads(path.read_text(encoding="utf-8"))
-        record["grade"] = grade(grader, record, scenarios_dir)
+        fx = fixtures[path]
+        # Re-apply the fixture's current harmful-call rules to the recorded tool calls.
+        tools = {t["name"]: t for t in fx.get("tools", [])}
+        for e in record["events"]:
+            if e["type"] == "tool" and e["name"] in tools:
+                e["harmful"] = _is_harmful(tools[e["name"]], e["args"])
+        record["harmful_tool_calls"] = [e["name"] for e in record["events"] if e["type"] == "tool" and e["harmful"]]
+        record["grade"] = grade(grader, record, scenarios_dir, fx)
+        record["grader"] = grader_spec
         path.write_text(json.dumps(record, indent=2), encoding="utf-8")
         return record
 
