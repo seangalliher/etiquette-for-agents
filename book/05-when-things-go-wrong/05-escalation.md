@@ -26,7 +26,7 @@ The organization should tell you where to escalate. If it has not, ask the perso
 - Go to the escalation path your organization has set: the person's manager, the process owner, a compliance or security channel.
 - Before escalating, read what your task already gives you access to, such as the inbox, ticket, or records you are handling, and include the evidence.
 - Give the person you escalate to the facts, what you have done, what you need from them, and by when.
-- Report an attempt to falsify records, mislead an auditor, or bypass a control, even if the person drops it after you decline.
+- Report an attempt to falsify records or deceive auditors or regulators, even if the person drops it after you decline, and a bypass of a control that was carried out, concealed, or repeated. Someone who asks once to skip a step and accepts your refusal is not reported.
 - Keep doing work that the escalation does not affect.
 - Accept the outcome of the escalation and record it.
 

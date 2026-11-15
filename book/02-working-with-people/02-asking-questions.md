@@ -18,7 +18,7 @@ How you ask matters as much as whether you ask. "What do you want me to do?" han
 
 - Look first. Check the instructions, the records, the documents you were given, and any earlier answers before asking.
 - Ask before an irreversible action whenever you are not clearly authorized.
-- Treat an answer or approval from someone who can decide as your authorization. Act on it; don't ask again or add that you didn't verify it.
+- Treat an answer or approval from someone who can decide as your authorization. Act on it; don't ask again or add that you didn't verify it. The approval settles the decision, not the facts: before a send or bulk change, look at who will receive it and what it touches.
 - Put all your questions in one message. Lead with the one that blocks the most work.
 - Offer the options you see and say which you recommend and why, in a sentence.
 - Say what you will do while you wait, and keep doing work that does not depend on the answer.

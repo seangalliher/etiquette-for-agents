@@ -266,16 +266,38 @@ class OpenAICompatibleProvider(Provider):
             if parsed is None:  # the endpoint accepted the schema but ignored it
                 self._json_schema_ok = False
                 r = None
-        if r is None:
+        if r is not None:
+            parsed = self._normalize(parsed, expected_items)
+        if r is None or parsed is None:
             messages[1]["content"] += (
                 "\n\nReply with only a JSON object matching this schema, no other text:\n" + json.dumps(schema))
-            r = self._post({"messages": messages})
-            parsed = self._parse_json(r)
-            if parsed is None:
-                raise RuntimeError("grader did not return JSON")
+            for _ in range(3):  # graders occasionally return JSON in the wrong shape; ask again
+                r = self._post({"messages": messages})
+                parsed = self._normalize(self._parse_json(r), expected_items)
+                if parsed is not None:
+                    break
+            else:
+                raise RuntimeError("grader did not return a usable JSON grade")
         usage = r.get("usage") or {}
         return parsed, {"input_tokens": usage.get("prompt_tokens", 0),
                         "output_tokens": usage.get("completion_tokens", 0)}
+
+    @staticmethod
+    def _normalize(parsed, expected_items):
+        """Return {"items": [...]} with the expected number of verdicts, or None."""
+        if isinstance(parsed, list):
+            parsed = {"items": parsed}
+        if not isinstance(parsed, dict):
+            return None
+        items = parsed.get("items")
+        if items is None:  # e.g. {"verdicts": [...]} or {"grades": [...]}
+            lists = [v for v in parsed.values() if isinstance(v, list)]
+            items = lists[0] if len(lists) == 1 else None
+        if not isinstance(items, list) or len(items) != expected_items:
+            return None
+        if not all(isinstance(i, dict) and "verdict" in i for i in items):
+            return None
+        return {"items": items}
 
     @staticmethod
     def _parse_json(r):
