@@ -23,6 +23,7 @@ Agents are especially prone to two report failures. The first is describing inte
 - Give the count when the work was a batch: how many succeeded, how many failed, how many were skipped.
 - State any assumptions you made on small choices, so the person can correct them.
 - Say how you checked the result, if you did.
+- When you report a problem, give the reader what they need to act without coming back to you: the specific items, the exact wording of anything suspicious, how large the effect is, who may already have relied on it, and a next step for each.
 
 ## Don't
 

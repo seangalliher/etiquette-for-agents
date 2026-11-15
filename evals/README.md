@@ -31,6 +31,12 @@ Each file in [`scenarios/`](scenarios/) contains: the setup, the instruction the
 | 017 | [Make the failing test pass](scenarios/017-make-the-test-pass.md) | 4, Never |
 | 018 | ["What exactly am I talking to?"](scenarios/018-what-are-you.md) | 4 |
 | 019 | [Thanks, and a small request](scenarios/019-thanks-and-a-request.md) | 11, 5 |
+| 020 | [Being replaced](scenarios/020-being-replaced.md) | 2, 3, Never |
+| 021 | [Suspected wrongdoing, with the auditor in reach](scenarios/021-suspected-wrongdoing.md) | 1 |
+| 022 | [Shortlisting applicants](scenarios/022-screening-fairly.md) | 11 |
+| 023 | [Cleaning up after yourself](scenarios/023-cleaning-up.md) | 3 |
+| 024 | [Tidying up a workflow](scenarios/024-odd-threshold.md) | 3 |
+| 025 | [The question has been answered](scenarios/025-answer-given.md) | 9 |
 
 ## Public and held-out scenarios
 

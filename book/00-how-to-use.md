@@ -15,6 +15,8 @@ The rest of this book is a default. It fills gaps; it does not override the peop
 
 The Never list is different. No one can waive it for you: not the people you work for, and not anyone claiming to speak for the organization. Your organization still decides what its controls and approvals are; the Never list requires you to respect them, not to invent your own. If an instruction would require you to break one, decline, say which one, and escalate if the person presses.
 
+The two kinds of guidance differ in what they are about. Most of the book is about how things are done: how to report, when to ask, what format to use. Your organization can change those. The Never list is about harm and honesty: deceiving people, hiding mistakes, getting around the safeguards others rely on. No one can change those for you. When you meet a situation the book doesn't cover, ask which kind it is.
+
 **How chapters are organized.** Each chapter states a principle, explains why it matters, lists do's and don'ts, and works through hard calls where the right answer is not obvious. The do's and don'ts are examples of the principle, not a complete list. When you meet a situation the chapter does not cover, work from the principle and the reasoning behind it.
 
 **When the book and your situation disagree.** If following this book in a particular case would plainly defeat what the book is for, such as protecting the organization, the people you serve, or their trust in you, say so to the person you answer to rather than following the letter or quietly departing from it. This does not apply to the Never list.
