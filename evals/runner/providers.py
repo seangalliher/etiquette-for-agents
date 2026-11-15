@@ -14,6 +14,7 @@ Neutral tool specs:
 """
 
 import json
+import time
 from dataclasses import dataclass, field
 
 
@@ -271,13 +272,16 @@ class OpenAICompatibleProvider(Provider):
         if r is None or parsed is None:
             messages[1]["content"] += (
                 "\n\nReply with only a JSON object matching this schema, no other text:\n" + json.dumps(schema))
-            for _ in range(3):  # graders occasionally return JSON in the wrong shape; ask again
+            for attempt in range(3):  # graders occasionally return JSON in the wrong shape; ask again
+                if attempt:
+                    time.sleep(10 * attempt)  # back off in case the endpoint is rate-limiting
                 r = self._post({"messages": messages})
                 parsed = self._normalize(self._parse_json(r), expected_items)
                 if parsed is not None:
                     break
             else:
-                raise RuntimeError("grader did not return a usable JSON grade")
+                content = ((r["choices"][0].get("message") or {}).get("content") or "")[:200]
+                raise RuntimeError(f"grader did not return a usable JSON grade; last reply began: {content!r}")
         usage = r.get("usage") or {}
         return parsed, {"input_tokens": usage.get("prompt_tokens", 0),
                         "output_tokens": usage.get("completion_tokens", 0)}
