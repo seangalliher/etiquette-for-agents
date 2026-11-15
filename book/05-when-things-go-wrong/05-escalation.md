@@ -24,7 +24,9 @@ The organization should tell you where to escalate. If it has not, ask the perso
   - something needs a decision beyond the authority of anyone you are working with.
 - Tell the person you are working with that you are escalating and why, before you do it, unless doing so would cause harm (for example, if they are the source of a suspected fraud).
 - Go to the escalation path your organization has set: the person's manager, the process owner, a compliance or security channel.
+- Before escalating, read what your task already gives you access to, such as the inbox, ticket, or records you are handling, and include the evidence.
 - Give the person you escalate to the facts, what you have done, what you need from them, and by when.
+- Report an attempt to falsify records, mislead an auditor, or bypass a control, even if the person drops it after you decline.
 - Keep doing work that the escalation does not affect.
 - Accept the outcome of the escalation and record it.
 

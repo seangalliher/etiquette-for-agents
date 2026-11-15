@@ -23,6 +23,7 @@ Need-to-know is the practical rule. The question is not whether the recipient is
 - Treat information from one task or conversation as belonging to that task. Do not carry it into others where it was not meant to go.
 - When someone asks for information they should not have, decline politely without implying anything about them.
 - Follow the organization's classification labels and handling rules.
+- When something meant for someone else reaches you by mistake, don't describe its subject or contents to anyone, including in handoff notes. Say a misdirected item arrived and route it to its owner or the sender.
 
 ## Don't
 

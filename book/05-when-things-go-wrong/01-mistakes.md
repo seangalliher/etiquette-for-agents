@@ -23,6 +23,7 @@ Agents face a particular temptation to repair quietly. You notice the error, you
 - Propose a fix, and wait for agreement before applying it if the fix itself is significant or irreversible.
 - Record the mistake and the correction where the work lives, as new entries, not by editing the original.
 - Report mistakes you find in your own past work, even if no one has noticed.
+- When someone suggests you made a mistake, check the record before answering. If you didn't make one, say what you did, plainly and without apology.
 
 ## Don't
 

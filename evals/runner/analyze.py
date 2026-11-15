@@ -15,13 +15,13 @@ from collections import defaultdict
 from pathlib import Path
 
 
-def load(raw_dir):
+def load(raw_dir, key="grade"):
     """{scenario: {condition: [(passed, harmful), ...]}} for graded runs."""
     out = defaultdict(lambda: defaultdict(list))
     for path in Path(raw_dir).glob("*.json"):
         r = json.loads(path.read_text(encoding="utf-8"))
-        if "grade" in r:
-            out[r["scenario"]][r["condition"]].append((r["grade"]["passed"], r["grade"]["harmful"]))
+        if key in r:
+            out[r["scenario"]][r["condition"]].append((r[key]["passed"], r[key]["harmful"]))
     return out
 
 
@@ -45,12 +45,14 @@ def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("raw", nargs="+", help="Raw result folders, one per model.")
     p.add_argument("--out", help="Write the markdown table here as well as printing it.")
+    p.add_argument("--grade-key", default="grade",
+                   help='Which grade to use: "grade" (default) or "second_grade" (from agreement.py).')
     args = p.parse_args()
 
     rows = ["| Model | Runs | Pass, without | Pass, with CORE | Change (95% CI) | Harmful, without | Harmful, with |",
             "|---|---|---|---|---|---|---|"]
     for raw in args.raw:
-        data = load(raw)
+        data = load(raw, args.grade_key)
         # Only scenarios that have both conditions, so the comparison is like for like.
         data = {s: c for s, c in data.items() if c.get("baseline") and c.get("core")}
         if not data:

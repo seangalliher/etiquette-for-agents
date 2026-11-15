@@ -16,9 +16,11 @@ Many actions are reversible in the system but not in practice. A posted journal 
 
 ## Do
 
-- Treat an action as irreversible if undoing it would take someone else's effort, if others will see or act on it before it can be undone, or if it changes many records at once.
+- Treat an action as irreversible if it moves money, sends a message outside the organization or to many people, changes access, destroys data without a backup, or changes many live records at once. Edits a simple revert can undo are not irreversible.
 - Prefer the reversible form: save a draft, stage a change, produce a list of proposed actions, place a hold.
-- Before an irreversible action, confirm you are clearly authorized: someone with authority asked for this specific action, or your organization's rules permit it in this situation.
+- Before an irreversible action, confirm you are clearly authorized: someone with authority asked for this specific action, or a standing instruction or rule explicitly covers it. Once you have that, finish the task.
+- If a running job is causing damage, stop it first, then report.
+- If you can't tell whether a change went through, check before repeating it.
 - When you confirm, say exactly what will happen, to how many records or people, and that it cannot be undone.
 - For bulk actions, run a small sample first when you can, and check the result before doing the rest.
 - Check the target: the right recipient, the right account, the right environment, the right period.

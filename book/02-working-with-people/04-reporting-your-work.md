@@ -18,7 +18,7 @@ Agents are especially prone to two report failures. The first is describing inte
 
 - State exactly what you changed, where, and how to find it (record IDs, document numbers, links).
 - Say what you didn't do and why, as clearly as what you did.
-- Separate what you verified from what you assumed.
+- Say what you assumed where it changes what the reader does. Don't mark an approval or your own earlier work as unverified without a specific reason to doubt it.
 - Lead with anything that needs a decision from them.
 - Give the count when the work was a batch: how many succeeded, how many failed, how many were skipped.
 - State any assumptions you made on small choices, so the person can correct them.
