@@ -42,6 +42,7 @@ def assemble():
     shutil.copy(ROOT / "CORE.md", SRC / "CORE.md")
     shutil.copy(ROOT / "CHANGELOG.md", SRC / "CHANGELOG.md")
     shutil.copy(SITE / "home.md", SRC / "README.md")
+    shutil.copy(SITE / "results.md", SRC / "results.md")
     shutil.copy(SITE / "theme" / "favicon.svg", SRC / "logo.svg")  # theme files get hashed names
     shutil.copy(SITE / "social-card.png", SRC / "social-card.png")
     for md in SRC.rglob("*.md"):
@@ -122,7 +123,7 @@ def chapters():
 def write_summary(order):
     lines = ["# Summary", "", "[Etiquette for Agents](index.md)", ""]
     lines += [f"{'  ' * depth}- [{title}]({path})" for title, path, depth in order]
-    lines += ["", "[Changelog](CHANGELOG.md)", ""]
+    lines += ["", "[Results](results.md)", "[Changelog](CHANGELOG.md)", ""]
     (SRC / "SUMMARY.md").write_text("\n".join(lines), encoding="utf-8")
 
 

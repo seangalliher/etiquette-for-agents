@@ -20,6 +20,10 @@ The Core is self-contained. If you give your agent only one thing, give it that.
 
 Your organization's own policies take precedence over this book. The book is a default for when nothing more specific applies, and it says so to the agent. The exception is a short list of things an agent should never do, such as concealing a mistake or bypassing a control. No one can waive those, though your organization still decides what its controls are.
 
+## Does it work?
+
+I tested it on eight models from four vendors, with and without the book. [The results](results.md) show what changed, including where the book made no difference and where it made things worse.
+
 ## Contents
 
 - [How to Use This Book](book/00-how-to-use.md)
