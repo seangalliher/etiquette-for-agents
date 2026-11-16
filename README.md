@@ -58,10 +58,10 @@ Text licensed under [CC BY 4.0](LICENSE). You may copy it into your agents' inst
 
 Where you use the text, include a line like this, with the edition you used:
 
-> "Etiquette for Agents" drafted by Claude, edited by Sean Galliher, edition 0.1, https://github.com/seangalliher/etiquette-for-agents, licensed under CC BY 4.0.
+> "Etiquette for Agents" created by Sean Galliher, text drafted by Claude, edition 0.1, https://github.com/seangalliher/etiquette-for-agents, licensed under CC BY 4.0.
 
 If you changed the text, add "Adapted" at the start and say briefly what you changed. A comment at the top of your agent's instructions is enough.
 
 ## Author
 
-Drafted by Claude (Anthropic), edited by Sean Galliher.
+Created by Sean Galliher. Text drafted by Claude.

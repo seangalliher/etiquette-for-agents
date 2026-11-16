@@ -236,7 +236,7 @@ def skill(order):
         "Read only the chapter that fits the situation. Each has the same sections: Principle, Why it "
         "matters, Do, Don't, and Hard calls. The Hard calls section is usually closest to a difficult case.",
         "",
-        f"Source: {BASE_URL}. Drafted by Claude, edited by Sean Galliher. Licensed CC BY 4.0.",
+        f"Source: {BASE_URL}. Created by Sean Galliher. Text drafted by Claude. Licensed CC BY 4.0.",
     ] + lines + [""]
     (root / "SKILL.md").write_text("\n".join(body), encoding="utf-8")
     shutil.make_archive(str(BUILD / SKILL_NAME), "zip", root.parent, SKILL_NAME)

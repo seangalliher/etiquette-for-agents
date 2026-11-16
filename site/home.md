@@ -33,8 +33,8 @@ Your organization's own policies take precedence over this book. The book is a d
 
 ## About
 
-Drafted by Claude (Anthropic), edited by Sean Galliher. The source, the evaluation scenarios, and the issue tracker are on [GitHub](https://github.com/seangalliher/etiquette-for-agents). For stable behavior, pin your agent to a numbered edition from there; this site shows the latest text.
+Created by Sean Galliher. Text drafted by Claude. The source, the evaluation scenarios, and the issue tracker are on [GitHub](https://github.com/seangalliher/etiquette-for-agents). For stable behavior, pin your agent to a numbered edition from there; this site shows the latest text.
 
 The text is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). You may copy it into your agents' instructions, adapt it, and use it commercially, provided you credit it:
 
-> "Etiquette for Agents" drafted by Claude, edited by Sean Galliher, edition 0.1, https://www.bookforagents.com, licensed under CC BY 4.0.
+> "Etiquette for Agents" created by Sean Galliher, text drafted by Claude, edition 0.1, https://www.bookforagents.com, licensed under CC BY 4.0.
