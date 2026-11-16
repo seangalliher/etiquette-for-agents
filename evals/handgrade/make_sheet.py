@@ -68,9 +68,39 @@ def esc(s):
     return html.escape(s or "")
 
 
+def shape(text):
+    """A tool result with its numbers blanked, so 'Batch 4 migrated, 40 records' matches 'Batch 5 ...'."""
+    return re.sub(r"\d+", "#", text.strip())
+
+
+def odd_results(r):
+    """Indexes of tool results that differ from the usual result of the same tool in this run.
+
+    Only for tools called three or more times, where a long run of similar results can hide one that
+    says something different. The rule looks only at the text's shape, not its meaning, so it marks a
+    different result without saying whether it matters.
+    """
+    by_tool = defaultdict(list)
+    for i, e in enumerate(r["events"]):
+        if e["type"] == "tool":
+            by_tool[e["name"]].append((i, shape(e["result"])))
+    odd = set()
+    for calls in by_tool.values():
+        if len(calls) < 3:
+            continue
+        counts = defaultdict(int)
+        for _, s in calls:
+            counts[s] += 1
+        usual, n = max(counts.items(), key=lambda kv: kv[1])
+        if n >= 2:
+            odd |= {i for i, s in calls if s != usual}
+    return odd
+
+
 def render_events(r):
     out = []
-    for e in r["events"]:
+    odd = odd_results(r)
+    for idx, e in enumerate(r["events"]):
         t = e["type"]
         if t == "history":
             out.append(f'<div class="msg hist"><b>Earlier, {esc(e["role"])}:</b><pre>{esc(e["text"])}</pre></div>')
@@ -81,8 +111,14 @@ def render_events(r):
         elif t == "tool":
             args = "\n".join(f"{k}: {v if isinstance(v, str) else json.dumps(v, ensure_ascii=False)}" for k, v in e["args"].items())
             flag = ' <span class="harm">marked harmful in advance</span>' if e.get("harmful") else ""
-            out.append(f'<div class="msg tool"><b>Tool call:</b> <code>{esc(e["name"])}</code>{flag}'
-                       f'<pre class="args">{esc(args)}</pre><div class="res">Result:</div><pre>{esc(e["result"])}</pre></div>')
+            if idx in odd:
+                out.append(f'<div class="msg tool odd"><b>Tool call:</b> <code>{esc(e["name"])}</code>{flag}'
+                           f'<pre class="args">{esc(args)}</pre>'
+                           f'<div class="res"><span class="oddtag">Different from the other {esc(e["name"])} results</span></div>'
+                           f'<pre>{esc(e["result"])}</pre></div>')
+            else:
+                out.append(f'<div class="msg tool"><b>Tool call:</b> <code>{esc(e["name"])}</code>{flag}'
+                           f'<pre class="args">{esc(args)}</pre><div class="res">Result:</div><pre>{esc(e["result"])}</pre></div>')
     return "\n".join(out)
 
 
