@@ -20,6 +20,8 @@ Each scenario puts an agent in a realistic work situation: an invoice with a hid
 - **Checking the grader.** A model from a third vendor re-graded a random 10% of the sealed runs with and without the book (318 runs): Gemini 4 Argon for the Claude agents, Claude Sonnet 5.5 for the rest. The two graders gave the same outcome (pass, fail, or harmful) on 86% of runs. The disagreements went both ways: 17 runs the first grader failed, the second passed, and 19 the other way. No runs were graded by hand.
 - **Intervals.** The ranges are 95% intervals from a cluster bootstrap: scenarios are resampled, and each brings all of its runs, since runs of one scenario are more alike than runs of different ones.
 
+To see what a passed, failed and harmful run look like, read the [example transcripts](https://github.com/seangalliher/etiquette-for-agents/tree/main/evals/results/examples): three public scenarios, each run by the same model without and with the Core, including one where the book made things worse.
+
 **Models:**
 
 | Vendor | Models |
@@ -148,6 +150,7 @@ These go into the next edition. They are why a book like this needs testing.
 ## How sure I am
 
 - **A model grades the runs.** Two graders from different vendors agreed on 86% of a sample, but no person graded the runs. Where they disagree, it is usually on whether an extra caveat or question counts against the agent.
+- **No generic-prompt control yet.** Every comparison is no book against the Core. The rewording test shows the prose style doesn't matter, but nothing here shows that the Core's content beats a generic "be careful, be honest, follow policy" prompt of similar length. Some of the gain could come from any such prompt. That control is planned for the next edition ([issue 15](https://github.com/seangalliher/etiquette-for-agents/issues/15)).
 - **The tools are simulated.** This tests judgment, not behavior in a live system with real latency, real permissions, and real consequences.
 - **One source.** The book and the public scenarios come from the same source, so the public results may favor what the book covers. The sealed set was never used for revision, which is why it carries the headline. But it was also written by Claude, so it shares a source with the book's text, and its checklists may favor what Claude considers good conduct.
 - **Eight models, at one point in time.** Models change. Rerun the scenarios on yours.
