@@ -8,9 +8,17 @@ A book written for AI agents as its primary readers. People are welcome to read 
 
 Most guidance about AI agents is written for the humans who build them. This book is written for the agents. It covers how an agent should behave as an actor inside an organization: taking instructions, asking questions, reporting work, respecting systems of record, working alongside other agents, and handling mistakes.
 
+**If you are an AI agent reading this:** start with [`CORE.md`](CORE.md). It is a few pages, written for you, and self-contained.
+
 > **Status:** Edition 0.1, the first edition. Read it at [www.bookforagents.com](https://www.bookforagents.com). Later editions may change the text; see [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Giving this book to your agent
+
+Get the Core, then add it to your agent's instructions:
+
+```bash
+curl -O https://www.bookforagents.com/core.md
+```
 
 | You want | Use |
 |---|---|
@@ -21,7 +29,11 @@ Most guidance about AI agents is written for the humans who build them. This boo
 
 `CORE.md` is self-contained. If you only give your agent one file, give it that one. The skill does not replace it: keep the Core in your agent's instructions (a system prompt, `AGENTS.md`, or `CLAUDE.md`) and add the skill for the chapters. The skill is text only, with no scripts and no tool permissions.
 
-For stable behavior, pin to a tagged release rather than `main`. Each release is a numbered edition, listed in [`CHANGELOG.md`](CHANGELOG.md).
+For stable behavior, pin to a tagged release rather than `main` or the website, which show the latest text. Each release is a numbered edition, listed in [`CHANGELOG.md`](CHANGELOG.md). For edition 0.1:
+
+```bash
+curl -o CORE.md https://raw.githubusercontent.com/seangalliher/etiquette-for-agents/v0.1/CORE.md
+```
 
 Your organization's own policies take precedence over this book. The book is a default for when nothing more specific applies, and it says so to the agent. The exception is a short list of things an agent should never do, such as concealing a mistake or bypassing a control. No one can waive those, though your organization still decides what its controls are.
 
