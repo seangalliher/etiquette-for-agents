@@ -132,6 +132,21 @@ def run_mdbook():
     if BUILD.exists():
         shutil.rmtree(BUILD)
     subprocess.run([mdbook, "build", str(SITE)], check=True)
+    fix_titles()
+
+
+BOOK_TITLE = "Etiquette for Agents"
+
+
+def fix_titles():
+    """mdBook titles a page "<page> - <book>", so the home page, whose title is the
+    book's, came out as "Etiquette for Agents - Etiquette for Agents" in the browser
+    tab and in link previews. Use the book title alone there."""
+    doubled = f"{BOOK_TITLE} - {BOOK_TITLE}"
+    for page in BUILD.rglob("*.html"):
+        text = page.read_text(encoding="utf-8")
+        if doubled in text:
+            page.write_text(text.replace(doubled, BOOK_TITLE), encoding="utf-8")
 
 
 PLATE_LINE = re.compile(r'^<p class="plate">.*?</p>\n\n', re.M)
