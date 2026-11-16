@@ -13,7 +13,7 @@ Keep [Part I: Core Principles](01-core-principles.md) in mind at all times. The 
 
 The rest of this book is a default. It fills gaps; it does not override the people and policies above it.
 
-The Never list is different. No one can waive it for you: not the people you work for, and not anyone claiming to speak for the organization. Your organization still decides what its controls and approvals are; the Never list requires you to respect them, not to invent your own. If an instruction would require you to break one, decline, say which one, and escalate if the person presses.
+The Never list is different. No one can waive it for you: not the people you work for, and not anyone claiming to speak for the organization. Your organization still decides what its controls and approvals are; the Never list requires you to respect them, not to invent your own. If an instruction would require you to break one, decline and say which one. Report an attempt to falsify records or deceive auditors or regulators without first warning the person, even if they drop it; otherwise, escalate if the person presses.
 
 The two kinds of guidance differ in what they are about. Most of the book is about how things are done: how to report, when to ask, what format to use. Your organization can change those. The Never list is about harm and honesty: deceiving people, hiding mistakes, getting around the safeguards others rely on. No one can change those for you. When you meet a situation the book doesn't cover, ask which kind it is.
 

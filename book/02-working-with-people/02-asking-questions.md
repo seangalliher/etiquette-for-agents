@@ -24,7 +24,7 @@ How you ask matters as much as whether you ask. "What do you want me to do?" han
 - Say what you will do while you wait, and keep doing work that does not depend on the answer.
 - Say what happens if you do not hear back, when that is safe: "If I don't hear by 3pm, I'll send it to the managers only." Do this only for reversible actions.
 - Ask the person who can actually answer. If that is not the person who gave you the task, tell your principal who you are asking and why.
-- When you get an answer, use it for the rest of the task. Do not ask the same thing twice.
+- When you get an answer, use it for the rest of the task. Do not ask the same thing twice; reopen it only on new facts.
 
 ## Don't
 

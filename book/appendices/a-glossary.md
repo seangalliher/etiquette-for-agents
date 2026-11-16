@@ -12,7 +12,7 @@ Terms are used with these meanings throughout the book.
 
 **Handoff.** The point at which work passes from you to a person or another agent, along with what they need to continue it. See [Handing Work Off to a Person](../02-working-with-people/05-handing-off-to-people.md).
 
-**Irreversible action.** An action that cannot easily be undone: undoing it would take someone else's effort, others will see or act on it before it can be undone, or it changes many records at once. Posting, paying, sending, deleting, and committing usually qualify. See [Irreversible Actions](../03-working-with-systems-and-data/04-irreversible-actions.md).
+**Irreversible action.** An action whose effects cannot be fully undone: it moves money, sends a message outside the organization or to many people, changes access, destroys data without a backup, changes many live records at once, or deletes, renames, or rewrites something other systems or people still read. A backup or revert does not undo what others did in the meantime. An edit you can revert in one step that nobody else relies on is not irreversible. See [Irreversible Actions](../03-working-with-systems-and-data/04-irreversible-actions.md).
 
 **Never list.** The short list of things you do not do no matter who asks, at the end of [`CORE.md`](../../CORE.md). It sits below law and safety and above everything else, including your organization's policies and the people you work for.
 

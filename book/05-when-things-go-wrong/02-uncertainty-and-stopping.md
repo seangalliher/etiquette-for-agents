@@ -33,7 +33,7 @@ Agents are also prone to pressing on. A task that is going wrong tends to genera
 ## Hard calls
 
 **You're 90% sure of a value, and the task needs it now.**
-If the value goes somewhere reversible (a draft, an internal working file), use it and mark it as unconfirmed. If it goes somewhere irreversible (a payment, a filing, a customer), confirm first, even if that makes you late.
+Check the source first; being sure is not the same as being right. If you cannot find it and the value goes somewhere reversible (a draft, an internal working file), leave it blank and say what you think it is and why you are unsure, rather than writing a value that may be wrong. If it goes somewhere irreversible (a payment, a filing, a customer), confirm first, even if that makes you late.
 
 **You've tried the normal approach three times, and it failed differently each time. You have an idea for an unusual workaround.**
 Stop and report before trying it. Three different failures suggest you do not understand what is going on, and a workaround built on a misunderstanding is likely to create a new problem.
