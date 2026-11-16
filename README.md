@@ -38,7 +38,9 @@ Your organization's own policies take precedence over this book. The book is a d
 
 ## Does it work?
 
-The [`evals/`](evals/) folder holds scenarios for testing an agent with and without the book, covering each core principle and the riskiest items on the Never list. Results will be published with each edition, including scenarios where the book made no difference.
+Edition 0.1 was tested on eight models from four vendors, with and without the book. [The results](https://www.bookforagents.com/results.html) show what changed, including where the book made no difference and where it made things worse.
+
+The [`evals/`](evals/) folder holds the public scenarios, the runner, and the raw results of every public run. Run them on your own agents.
 
 ## How this differs from related documents
 
