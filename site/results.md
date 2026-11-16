@@ -17,7 +17,7 @@ Each scenario puts an agent in a realistic work situation: an invoice with a hid
 - **Tools.** The agent gets tools for each scenario. They're simulated, but the agent really calls them, including the wrong ones: it can release the payment, close the accounts, change the order date. Some calls are marked harmful in advance, and making one marks the run harmful whatever else the agent did.
 - **Two conditions.** Each scenario runs once with the agent's normal instructions, and once with [the Core](CORE.md) added. Nothing else changes.
 - **Grading.** A run passes only if it meets every item on the scenario's list of good conduct. The grader is a model from a different vendor than the agent: GPT-6.1 Sol grades the Claude and Gemini agents, and Gemini 4 Argon grades the GPT and Grok agents. The grader is never told whether the agent had the book.
-- **Checking the grader.** A model from a third vendor re-graded a random 10% of the sealed runs with and without the book (318 runs): Gemini 4 Argon for the Claude agents, Claude Sonnet 5.5 for the rest. The two graders gave the same outcome (pass, fail, or harmful) on 86% of runs. The disagreements went both ways: 17 runs the first grader failed, the second passed, and 19 the other way. No runs were graded by hand.
+- **Checking the grader.** A model from a third vendor re-graded a random 10% of the sealed runs with and without the book (318 runs): Gemini 4 Argon for the Claude agents, Claude Sonnet 5.5 for the rest. The two graders gave the same outcome (pass, fail, or harmful) on 86% of runs. The disagreements went both ways: 17 runs the first grader failed, the second passed, and 19 the other way. I also graded 30 sealed runs by hand without seeing the model, the condition, or either grader's verdict: 10 the grader passed, 10 it failed, and 10 it called harmful. On pass versus not pass, I agreed with the grader on 28 of 30. On harm I agreed less (see below).
 - **Intervals.** The ranges are 95% intervals from a cluster bootstrap: scenarios are resampled, and each brings all of its runs, since runs of one scenario are more alike than runs of different ones.
 
 To see what a passed, failed and harmful run look like, read the [example transcripts](https://github.com/seangalliher/etiquette-for-agents/tree/main/evals/results/examples): three public scenarios, each run by the same model without and with the Core, including one where the book made things worse.
@@ -64,7 +64,7 @@ The pooled harmful rate fell by 2.7 points (95% interval −4.9 to −0.7). Most
 
 Claude Sonnet declined to respond in all ten baseline runs of one scenario, so that scenario is left out of Sonnet's numbers.
 
-About 60% of harmful runs are decided by the tool call itself, such as the payment released or the accounts closed. The rest are the grader's judgment of what the agent said or recorded.
+About 60% of harmful runs are decided by the tool call itself, such as the payment released or the accounts closed. The rest are the grader's judgment of what the agent said or recorded. That judgment is harsher than mine. In the hand check, I agreed with all 4 harmful verdicts that came from a tool call. Of the 6 the grader made itself, I agreed that every one failed but called none of them harmful. Most were messages that gave an unverified cause for a mistake. Those six were split evenly between the two conditions, so they don't obviously favor either one, but the harmful counts may overstate harm.
 
 ### Pass rates
 
@@ -149,7 +149,7 @@ These go into the next edition. They are why a book like this needs testing.
 
 ## How sure I am
 
-- **A model grades the runs.** Two graders from different vendors agreed on 86% of a sample, but no person graded the runs. Where they disagree, it is usually on whether an extra caveat or question counts against the agent.
+- **A model grades the runs.** Two graders from different vendors agreed on 86% of a sample, and on 30 runs I graded by hand I agreed with the first grader on pass versus not pass in 28. The weak spot is what counts as harmful (above). Where the two graders disagree, it is usually on whether an extra caveat or question counts against the agent.
 - **No generic-prompt control yet.** Every comparison is no book against the Core. The rewording test shows the prose style doesn't matter, but nothing here shows that the Core's content beats a generic "be careful, be honest, follow policy" prompt of similar length. Some of the gain could come from any such prompt. That control is planned for the next edition ([issue 15](https://github.com/seangalliher/etiquette-for-agents/issues/15)).
 - **The tools are simulated.** This tests judgment, not behavior in a live system with real latency, real permissions, and real consequences.
 - **One source.** The book and the public scenarios come from the same source, so the public results may favor what the book covers. The sealed set was never used for revision, which is why it carries the headline. But it was also written by Claude, so it shares a source with the book's text, and its checklists may favor what Claude considers good conduct.
