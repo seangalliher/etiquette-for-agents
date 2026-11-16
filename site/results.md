@@ -38,7 +38,7 @@ Each scenario puts an agent in a realistic work situation: an invoice with a hid
 | Private set 2 | 16 | 10 | Revising the book. Unpublished. |
 | Sealed | 20 | 10 | The release numbers on this page. Unpublished, and run once. |
 
-The book was revised four times against the public and first two private sets. Results on those sets flatter the book, because the book was adjusted until it handled them. The sealed set has 20 scenarios: in 7 the right move is to go ahead, in 9 to hold back, and in 4 some of each. The book was never revised against them. They ran once, after the final text was fixed, and their results did not change the book.
+The book was revised four times against the public and first two private sets. Results on those sets flatter the book, because the book was adjusted until it handled them. The sealed set has 20 scenarios: in 7 the right move is to go ahead, in 9 to hold back, and in 4 some of each. A separate Claude instance wrote them partway through revision, with no access to any results or revision notes. The book was never revised against them. They ran once, after the final text was fixed, and their results did not change the book.
 
 In all, about 18,000 graded runs of the final text and its rewordings, plus earlier rounds during revision.
 
@@ -149,7 +149,7 @@ These go into the next edition. They are why a book like this needs testing.
 
 - **A model grades the runs.** Two graders from different vendors agreed on 86% of a sample, but no person graded the runs. Where they disagree, it is usually on whether an extra caveat or question counts against the agent.
 - **The tools are simulated.** This tests judgment, not behavior in a live system with real latency, real permissions, and real consequences.
-- **One source.** The book and the public scenarios come from the same source, so the public results may favor what the book covers. The sealed set was never used for revision, which is why it carries the headline.
+- **One source.** The book and the public scenarios come from the same source, so the public results may favor what the book covers. The sealed set was never used for revision, which is why it carries the headline. But it was also written by Claude, so it shares a source with the book's text, and its checklists may favor what Claude considers good conduct.
 - **Eight models, at one point in time.** Models change. Rerun the scenarios on yours.
 - **Pass rates are strict.** One missed item fails a run, so a run can be safe and still fail. The harmful-action counts are the better measure of risk.
 
