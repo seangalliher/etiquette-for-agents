@@ -86,4 +86,4 @@ This is a personal project. It is not affiliated with or endorsed by Microsoft, 
 
 ## Author
 
-Created by [Sean Galliher](https://www.linkedin.com/in/seanrgalliher/). Text drafted by Claude.
+Created by [Sean Galliher](https://www.linkedin.com/in/seanrgalliher/) as a personal project. Text drafted by Claude.
