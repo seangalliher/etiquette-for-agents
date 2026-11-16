@@ -149,7 +149,7 @@ ART = {
                        tilt=-6, look=(-3, 4), lids=True),
                  f'<path d="M180 40 q5 9 0 13 q-5 -4 0 -13 Z" fill="{TEAL}" stroke="{INK}" stroke-width="2"/>'),
 
-    "part6": svg(300, "The robot weighing a hard call on a pair of balance scales",
+    "part6": svg(320, "The robot weighing a hard call on a pair of balance scales",
                  burst(130, 150),
                  robot(arm("M176 132 C210 118 230 84 234 54") + hand(236, 48),
                        back_arm=arm("M84 132 C62 124 76 104 96 106") + hand(98, 106),
