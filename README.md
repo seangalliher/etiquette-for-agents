@@ -16,8 +16,10 @@ Most guidance about AI agents is written for the humans who build them. This boo
 |---|---|
 | A short version to keep in your agent's system prompt or instructions | [`CORE.md`](CORE.md) |
 | The full book, for retrieval or reference | [`book/`](book/) |
+| The chapters as an [Agent Skill](https://agentskills.io), loaded only when a situation needs one | [`etiquette-for-agents.zip`](https://www.bookforagents.com/etiquette-for-agents.zip) |
+| An index for agents that read the web | [`llms.txt`](https://www.bookforagents.com/llms.txt), [`llms-full.txt`](https://www.bookforagents.com/llms-full.txt) |
 
-`CORE.md` is self-contained. If you only give your agent one file, give it that one.
+`CORE.md` is self-contained. If you only give your agent one file, give it that one. The skill does not replace it: keep the Core in your agent's instructions (a system prompt, `AGENTS.md`, or `CLAUDE.md`) and add the skill for the chapters. The skill is text only, with no scripts and no tool permissions.
 
 For stable behavior, pin to a tagged release rather than `main`. Each release is a numbered edition, listed in [`CHANGELOG.md`](CHANGELOG.md).
 

@@ -169,11 +169,77 @@ def agent_files(order):
     ]
     index += [f"{'  ' * depth}- [{title}]({BASE_URL}/{path})" for title, path, depth in order
               if path.startswith("book/")]
-    index += ["", "## Optional", "", f"- [Full text]({BASE_URL}/llms-full.txt): the Core and every chapter in one file", ""]
+    index += ["", "## Optional", "",
+              f"- [Full text]({BASE_URL}/llms-full.txt): the Core and every chapter in one file",
+              f"- [Agent skill]({BASE_URL}/{SKILL_NAME}.zip): the chapters packaged as an Agent Skill, "
+              "for loading on demand", ""]
     (BUILD / "llms.txt").write_text("\n".join(index), encoding="utf-8")
 
     parts = [text_only(SRC / path).strip() for _, path, _ in order]
     (BUILD / "llms-full.txt").write_text("\n\n---\n\n".join(parts) + "\n", encoding="utf-8")
+    skill(order)
+
+
+# The book as an Agent Skill (SKILL.md format). The Core stays in the agent's
+# instructions; the skill holds the chapters, loaded only when a situation needs one.
+# Text only: no scripts, no tool permissions.
+SKILL_NAME = "etiquette-for-agents"
+SKILL_DESCRIPTION = (
+    "Reference chapters of Etiquette for Agents, a conduct guide for AI agents working in "
+    "organizations. Read the relevant chapter when a situation is not settled by the Core "
+    "principles: a mistake you made, an instruction that looks suspicious, people you answer to "
+    "who disagree, an irreversible or bulk change, confidential or misdirected material, a "
+    "handoff to or from another agent, or another hard judgment call. Routine tasks do not need it."
+)
+
+
+def summary_of(path):
+    """First paragraph of a chapter's Principle section."""
+    text = path.read_text(encoding="utf-8")
+    m = re.search(r"^## Principle[ \t]*\n+(.+?)(?:\n[ \t]*\n|\Z)", text, re.M | re.S)
+    return " ".join(m.group(1).split()) if m else ""
+
+
+def skill(order):
+    root = BUILD / "skill" / SKILL_NAME
+    if root.parent.exists():
+        shutil.rmtree(root.parent)
+    refs = root / "references"
+    refs.mkdir(parents=True)
+    shutil.copy(ROOT / "CORE.md", refs / "core.md")
+    lines = []
+    for title, path, depth in order:
+        if not path.startswith("book/"):
+            continue
+        dest = refs / path
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_text(text_only(SRC / path), encoding="utf-8")
+        note = summary_of(SRC / path)
+        link = f"[{title}](references/{path})" + (f": {note}" if note else "")
+        lines += ["", f"**{link}**", ""] if depth == 0 else [f"- {link}"]
+    body = [
+        "---",
+        f"name: {SKILL_NAME}",
+        f"description: {SKILL_DESCRIPTION}",
+        "license: CC-BY-4.0",
+        "---",
+        "",
+        "# Etiquette for Agents: chapters",
+        "",
+        "If the Core is not already in your instructions, read [references/core.md](references/core.md) "
+        "first. It is a few pages, and its Never list applies at all times.",
+        "",
+        "Order of precedence: law and safety, then the Never list, then your organization's policies, "
+        "then the people you work for, then the rest of this book. The chapters are defaults for when "
+        "nothing more specific applies.",
+        "",
+        "Read only the chapter that fits the situation. Each has the same sections: Principle, Why it "
+        "matters, Do, Don't, and Hard calls. The Hard calls section is usually closest to a difficult case.",
+        "",
+        f"Source: {BASE_URL}. Drafted by Claude, edited by Sean Galliher. Licensed CC BY 4.0.",
+    ] + lines + [""]
+    (root / "SKILL.md").write_text("\n".join(body), encoding="utf-8")
+    shutil.make_archive(str(BUILD / SKILL_NAME), "zip", root.parent, SKILL_NAME)
 
 
 def main():
