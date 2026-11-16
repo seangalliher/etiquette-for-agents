@@ -161,6 +161,7 @@ def text_only(path):
 def agent_files(order):
     BUILD.mkdir(parents=True, exist_ok=True)
     shutil.copy(ROOT / "CORE.md", BUILD / "core.md")
+    shutil.copy(SITE / "grade.html", BUILD / "grade.html")  # made by evals/handgrade/make_sheet.py
     for _, path, _ in order:
         if path.startswith("book/"):
             dest = BUILD / path
