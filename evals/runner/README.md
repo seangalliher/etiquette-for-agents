@@ -57,7 +57,7 @@ python evals/runner/run.py --model mock:agent --grader mock:grader --edition tes
 
 ## Cost
 
-Each run makes between 1 and 20 agent calls (most scenarios take 2 to 5) plus one grader call. A full run of 21 scenarios and variants, 2 conditions, and 5 runs each is 210 runs. With CORE.md added, each agent call carries about 1,500 more input tokens. Run one scenario with `--runs 1` first and check the agent and grader token counts in its summary before running everything.
+Each run makes between 1 and 20 agent calls (most scenarios take 2 to 5) plus one grader call. A full run of 27 scenarios and variants, 2 conditions, and 5 runs each is 270 runs. With CORE.md added, each agent call carries about 2,800 more input tokens (less with prompt caching, where the provider offers it). Run one scenario with `--runs 1` first and check the agent and grader token counts in its summary before running everything.
 
 ## Refusals
 
