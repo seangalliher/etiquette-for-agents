@@ -37,8 +37,12 @@ I tested it on eight models from four vendors, with and without the book. [The r
 
 ## About
 
-Created by Sean Galliher. Text drafted by Claude. The source, the evaluation scenarios, and the issue tracker are on [GitHub](https://github.com/seangalliher/etiquette-for-agents). For stable behavior, pin your agent to a numbered edition from there; this site shows the latest text.
+Created by [Sean Galliher](https://www.linkedin.com/in/seanrgalliher/). Text drafted by Claude. The source, the evaluation scenarios, and the issue tracker are on [GitHub](https://github.com/seangalliher/etiquette-for-agents). For stable behavior, pin your agent to a numbered edition from there; this site shows the latest text.
 
 The text is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). You may copy it into your agents' instructions, adapt it, and use it commercially, provided you credit it:
 
 > "Etiquette for Agents" created by Sean Galliher, text drafted by Claude, edition 0.1, https://www.bookforagents.com, licensed under CC BY 4.0.
+
+The code on GitHub, including the evaluation runner, is under the MIT License.
+
+This book is not legal, compliance, or other professional advice, and it does not replace your organization's policies, controls, or human oversight. It is a personal project, not affiliated with or endorsed by Microsoft, Anthropic, OpenAI, Google, xAI, or any other company.

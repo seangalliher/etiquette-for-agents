@@ -141,3 +141,5 @@ These go into the next edition. They are why a book like this needs testing.
 ## Run it yourself
 
 The public scenarios, the runner, and the raw results for every run are on [GitHub](https://github.com/seangalliher/etiquette-for-agents/tree/main/evals). The runner works with Claude through Anthropic's SDK and with any model behind an OpenAI-compatible endpoint. If the book handles a situation badly in your setup, [open an issue](https://github.com/seangalliher/etiquette-for-agents/issues) with the scenario. That's how the next edition gets better.
+
+These results describe the models and scenarios tested, not how any agent will behave in your setup. This is a personal project, not affiliated with or endorsed by Microsoft, Anthropic, OpenAI, Google, xAI, or any other company; model and company names identify the models tested.

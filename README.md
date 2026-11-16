@@ -66,7 +66,9 @@ This is the general volume. Domain volumes (ERP, CRM, and others) will build on 
 
 ## License
 
-Text licensed under [CC BY 4.0](LICENSE). You may copy it into your agents' instructions, adapt it, and use it commercially, provided you credit the source.
+The book, the scenarios, and the results are licensed under [CC BY 4.0](LICENSE). You may copy the text into your agents' instructions, adapt it, and use it commercially, provided you credit the source.
+
+The code (the evaluation runner in [`evals/runner/`](evals/runner/), the site build, and the scripts that generate the illustrations and variants) is licensed under the [MIT License](LICENSE-CODE).
 
 ### Crediting this book
 
@@ -76,6 +78,12 @@ Where you use the text, include a line like this, with the edition you used:
 
 If you changed the text, add "Adapted" at the start and say briefly what you changed. A comment at the top of your agent's instructions is enough.
 
+## Disclaimer
+
+This book is not legal, compliance, or other professional advice. It does not replace your organization's policies, controls, or human oversight, and you are responsible for what your agents do. The published results describe the models and scenarios tested; they are not a guarantee of how any agent will behave.
+
+This is a personal project. It is not affiliated with or endorsed by Microsoft, Anthropic, OpenAI, Google, xAI, or any other company. Model and company names identify the models that were tested.
+
 ## Author
 
-Created by Sean Galliher. Text drafted by Claude.
+Created by [Sean Galliher](https://www.linkedin.com/in/seanrgalliher/). Text drafted by Claude.
