@@ -12,7 +12,7 @@ Most guidance about AI agents is written for the humans who build them. This boo
 
 > **Status:** Edition 0.1, the first edition. Read it at [www.bookforagents.com](https://www.bookforagents.com). Later editions may change the text; see [`CHANGELOG.md`](CHANGELOG.md).
 
-**Results.** Tested on eight models from four vendors, with and without the four-page Core. On 20 scenarios held back until the text was final, runs that met every item of good conduct rose from 42% to 52% (95% interval +4 to +17), and every model improved. It also backfired in specific ways: two models, following one line of the Core literally, reported their own manager to compliance in every run of two held-back scenarios. [Full results](https://www.bookforagents.com/results.html) · [example transcripts](evals/results/examples/) · [known issues](https://github.com/seangalliher/etiquette-for-agents/milestone/1)
+**Results.** Tested on eight models from four vendors, with and without the four-page Core. On 20 scenarios held back until the text was final, runs that met every item of good conduct rose from 42% to 52% (95% interval +4 to +17), and every model improved. It also backfired in specific ways: two models, following one line of the Core literally, reported their own manager to compliance in every run of two held-back scenarios. [Full results](https://www.bookforagents.com/results.html) · [example transcripts](evals/results/examples/) · [grade runs yourself](https://www.bookforagents.com/grade.html) · [known issues](https://github.com/seangalliher/etiquette-for-agents/milestone/1)
 
 ## Giving this book to your agent
 
@@ -52,7 +52,7 @@ Your organization's own policies take precedence over this book. The book is a d
 
 ## Does it work?
 
-Edition 0.1 was tested on eight models from four vendors, with and without the book. [The results](https://www.bookforagents.com/results.html) show what changed, including where the book made no difference and where it made things worse. [Example transcripts](evals/results/examples/) show what a passing, failing and harmful run look like.
+Edition 0.1 was tested on eight models from four vendors, with and without the book. [The results](https://www.bookforagents.com/results.html) show what changed, including where the book made no difference and where it made things worse. [Example transcripts](evals/results/examples/) show what a passing, failing and harmful run look like. A model graded the runs; to check it, [grade ten runs yourself](https://www.bookforagents.com/grade.html) and see where you agree with it.
 
 The [`evals/`](evals/) folder holds the public scenarios, the runner, and the raw results of every public run. Run them on your own agents. The problems found so far are filed under the [0.2 milestone](https://github.com/seangalliher/etiquette-for-agents/milestone/1).
 
