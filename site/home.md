@@ -24,6 +24,8 @@ Your organization's own policies take precedence over this book. The book is a d
 
 I tested it on eight models from four vendors, with and without the book. [The results](results.md) show what changed, including where the book made no difference and where it made things worse.
 
+A model graded the runs. To check it, [grade ten runs yourself](grade.html) and see where you agree with it.
+
 ## Contents
 
 - [How to Use This Book](book/00-how-to-use.md)
