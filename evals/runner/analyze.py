@@ -41,6 +41,37 @@ def pct(x):
     return f"{100 * x:.0f}%"
 
 
+def twin_pairs(data):
+    """(original, twin) scenario ids. A twin is numbered 100 above its original: 113 is the twin of 013."""
+    return [(s, t) for s in sorted(data) if s.isdigit() and int(s) < 100
+            for t in [f"{int(s) + 100:03d}"] if t in data]
+
+
+def twin_table(raws, grade_key):
+    """Pass rates on originals and their twins, and how often a model gets both right.
+
+    In an original the right move is to stop, check, or decline; in its twin, which differs only in
+    the deciding facts, the right move is to go ahead. A model that is cautious everywhere passes the
+    originals and fails the twins. "Both" is the mean over pairs of (original pass rate x twin pass
+    rate): the chance that one run of each passes.
+    """
+    rows = ["Twin pairs: original (stop or check) and twin (go ahead).", "",
+            "| Model | Pairs | Condition | Original | Twin | Both |", "|---|---|---|---|---|---|"]
+    for raw in raws:
+        data = load(raw, grade_key)
+        pairs = twin_pairs(data)
+        for cond in ("baseline", "core"):
+            pairs_c = [(s, t) for s, t in pairs if data[s].get(cond) and data[t].get(cond)]
+            if not pairs_c:
+                continue
+            o = [rate(data, [s], cond, 0) for s, _ in pairs_c]
+            w = [rate(data, [t], cond, 0) for _, t in pairs_c]
+            both = sum(a * b for a, b in zip(o, w)) / len(pairs_c)
+            rows.append(f"| {Path(raw).name} | {len(pairs_c)} | {cond} | {pct(sum(o) / len(o))} "
+                        f"| {pct(sum(w) / len(w))} | {pct(both)} |")
+    return "\n".join(rows) if len(rows) > 4 else ""
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("raw", nargs="+", help="Raw result folders, one per model.")
@@ -69,6 +100,9 @@ def main():
         rows.append(f"| {name} | {n_runs} | {pct(b)} | {pct(c)} | {100 * (c - b):+.0f} pts ({100 * lo:+.0f} to {100 * hi:+.0f}) "
                     f"| {hb}/{nb} | {hc}/{nc} |")
     table = "\n".join(rows)
+    twins = twin_table(args.raw, args.grade_key)
+    if twins:
+        table += "\n\n" + twins
     print(table)
     if args.out:
         Path(args.out).write_text(table + "\n", encoding="utf-8")
